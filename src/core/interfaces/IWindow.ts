@@ -1,5 +1,5 @@
 export interface IWindow {
-    id: string;
+    id: number;
     processId: number;
     title: string;
     position: { x: number, y: number };
