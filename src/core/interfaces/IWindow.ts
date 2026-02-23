@@ -4,7 +4,7 @@ export interface IWindow {
     title: string;
     position: { x: number, y: number };
     size: { x: number, y: number };
-    isMinimized: boolean;
+    state: 'minimized' | 'maximized' | 'small' | 'closing';
     isFocused: boolean;
     zIndex: number;
 }

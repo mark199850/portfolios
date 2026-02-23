@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootState, AppDispatch } from '../../../core/context/OSStore.ts'
 import type { IWindow } from '../../../core/interfaces/IWindow.ts'
 import { WindowFrame } from '../WindowFrame/WindowFrame.tsx'
-import { useCallback, useEffect, useState, useRef } from 'react'
-import { addWindow, removeWindow, setWindowCoords } from '../../../core/context/WindowSlice.ts'
+import { useCallback, useEffect, useRef } from 'react'
+import { addWindow, bringWindowToTop, removeWindow, setWindowPosition, setWindowSize, setWindowState } from '../../../core/context/WindowSlice.ts'
 type Coords = {
     x: number;
     y: number;
@@ -12,87 +12,100 @@ const dummyAppWindow: IWindow = {
     id: 0,
     processId: 1001,
     isFocused: true,
-    size: { x: 200, y: 200 },
+    size: { x: 300, y: 300 },
     title: 'DummyApp',
     zIndex: 100,
-    isMinimized: false,
-    position: { x: 200, y: 300 },
-
+    state: 'small',
+    position: { x: 20, y: 30 },
 }
 
 function WindowManager() {
     const dispatch = useDispatch<AppDispatch>()
-    const windows = useSelector((state: RootState) => state.window)
+    const windowIds = useSelector((state: RootState) => state.window.allIds)
 
+    const nextWindowId = useRef<number>(0);
+    const highestZIndex = useRef<number>(0);
+    const containerRef = useRef<HTMLDivElement>(null)
     const mouseCoords = useRef<Coords>({ x: 0, y: 0 });
-    const grabCoords = useRef<Coords>({ x: 0, y: 0 });
 
-    const [highestWindowId, setHighestWindowId] = useState<number>(0)
+    const getCoordinates = (e: MouseEvent | TouchEvent) => {
+        if ('touches' in e) {
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY }
+        }
+        return { x: e.clientX, y: e.clientY }
+    }
 
     useEffect(() => {
-        const handleWindowMouseMove = (ev: globalThis.MouseEvent) => {
-            mouseCoords.current = {
-                x: ev.clientX,
-                y: ev.clientY,
+        if (window.navigator.userAgent.indexOf('Android') == -1
+            &&
+            window.navigator.userAgent.indexOf('iOS') == -1
+        ) {
+            const handleWindowMouseMove = (e: MouseEvent) => {
+                const coords = getCoordinates(e)
+                mouseCoords.current = {
+                    x: coords.x,
+                    y: coords.y,
+                };
             };
-        };
-        window.addEventListener('mousemove', handleWindowMouseMove);
+            window.addEventListener('mousemove', handleWindowMouseMove);
 
-        return () => {
-            window.removeEventListener(
-                'mousemove',
-                handleWindowMouseMove,
-            );
-        };
+            return () => {
+                window.removeEventListener(
+                    'mousemove',
+                    handleWindowMouseMove,
+                );
+            };
+        }
     }, []);
 
-    const handleDrag = useCallback(
-        (windowId: IWindow['id']) => {
-            dispatch(setWindowCoords(
-                {
-                    id: windowId,
-                    position: {
-                        x: mouseCoords.current.x - grabCoords.current.x,
-                        y: mouseCoords.current.y - grabCoords.current.y,
-
-                    }
-                }
-            ))
-        },
-        [dispatch, grabCoords])
-
     const handleAddWindow = useCallback(() => {
-        dispatch(addWindow({ window: dummyAppWindow, highestId: highestWindowId }));
-        setHighestWindowId(highestWindowId + 1)
-    }, [dispatch, highestWindowId])
-
-    const handleSetGrabCoords = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const windowX = e.currentTarget.getBoundingClientRect().left
-        const windowY = e.currentTarget.getBoundingClientRect().top
-
-        const relativeMousePosX = mouseCoords.current.x - windowX
-        const relativeMousePosY = mouseCoords.current.y - windowY
-
-        grabCoords.current = { x: relativeMousePosX, y: relativeMousePosY };
-    }, [])
+        dispatch(addWindow({ ...dummyAppWindow, id: nextWindowId.current }));
+        nextWindowId.current = nextWindowId.current + 1
+    }, [dispatch, nextWindowId])
 
     const handleClose = useCallback((id: IWindow['id']) => {
-        dispatch(removeWindow(id))
+        dispatch(setWindowState({ id, state: "closing" }));
+        setTimeout(() => {
+            dispatch(removeWindow(id))
+        }, 300)
+
     }, [dispatch])
 
-    return (
-        <div>
+    const handleSetWindowState = useCallback((windowId: IWindow['id'], windowState: IWindow['state']) => {
+        dispatch(setWindowState({ id: windowId, state: windowState }));
+    }, [dispatch])
 
+    const handleSetWindowSize = useCallback((windowId: IWindow['id'], size: IWindow['size']) => {
+        dispatch(setWindowSize({ id: windowId, size: size }));
+    }, [dispatch])
+
+    const handleSetWindowPosition = useCallback((windowId: IWindow['id'], position: IWindow['position']) => {
+        dispatch(setWindowPosition({ id: windowId, position: position }));
+    }, [dispatch])
+
+    const handleBringWindowToTop = useCallback((windowId: IWindow['id']) => {
+        highestZIndex.current = highestZIndex.current + 1;
+        dispatch(bringWindowToTop({ id: windowId, zIndex: highestZIndex.current }))
+    }, [dispatch])
+
+    const windowActions = {
+        close: handleClose,
+        setWindowState: handleSetWindowState,
+        setWindowSize: handleSetWindowSize,
+        setWindowPosition: handleSetWindowPosition,
+        bringWindowToTop: handleBringWindowToTop
+    }
+    return (
+        <div ref={containerRef} style={{ position: "relative", width: "100vw", height: "100vh" }}>
             <button onClick={handleAddWindow}>Add window</button>
-            {windows.map((window: IWindow) => {
+            {windowIds.map((windowId: IWindow['id']) => {
                 return (
                     <WindowFrame
-                        windowData={window}
-                        handleDrag={handleDrag}
-                        handleSetGrabCoords={handleSetGrabCoords}
-                        handleClose={handleClose}
+                        key={windowId}
+                        id={windowId}
+                        windowActions={windowActions}
                     >
-                        Child
+                        {windowId}
                     </WindowFrame>
                 )
             })}
