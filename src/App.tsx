@@ -1,10 +1,10 @@
 import './App.css'
-import WindowManager from './components/system/WindowManager/WindowManager.tsx';
+import WindowStack from './components/system/WindowStack/WindowStack.tsx';
 
 function App() {
     return (
         <>
-            <WindowManager></WindowManager>
+            <WindowStack></WindowStack>
         </>
     )
 }

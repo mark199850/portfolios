@@ -1,0 +1,94 @@
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../core/context/OSStore.ts'
+import type { IWindow } from '../../../core/interfaces/IWindow.ts'
+import { WindowFrame } from '../WindowFrame/WindowFrame.tsx'
+import { useEffect, useMemo, useRef } from 'react'
+import { useWindowManager } from '../../../hooks/useWindowManager.ts'
+
+type Coords = {
+    x: number;
+    y: number;
+}
+const dummyAppWindow: IWindow = {
+    id: "test",
+    processId: 1001,
+    isFocused: true,
+    size: { x: 300, y: 300 },
+    title: 'DummyApp',
+    zIndex: 100,
+    state: 'small',
+    position: { x: 20, y: 30 },
+}
+
+function WindowStack() {
+    const windowIds = useSelector((state: RootState) => state.window.allIds)
+
+    const [
+        handleAddWindow,
+        handleCloseWindow,
+        handleBringWindowToTop,
+        handleSetWindowState,
+        handleSetWindowSize,
+        handleSetWindowPosition,
+    ] = useWindowManager();
+
+    const windowActions = useMemo(() => ({
+        close: handleCloseWindow,
+        bringWindowToTop: handleBringWindowToTop,
+        setWindowState: handleSetWindowState,
+        setWindowSize: handleSetWindowSize,
+        setWindowPosition: handleSetWindowPosition,
+    }), [handleCloseWindow, handleBringWindowToTop, handleSetWindowState, handleSetWindowSize, handleSetWindowPosition]);
+
+    const containerRef = useRef<HTMLDivElement>(null)
+    const mouseCoords = useRef<Coords>({ x: 0, y: 0 });
+
+    const getCoordinates = (e: MouseEvent | TouchEvent) => {
+        if ('touches' in e) {
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY }
+        }
+        return { x: e.clientX, y: e.clientY }
+    }
+
+    useEffect(() => {
+        if (window.navigator.userAgent.indexOf('Android') == -1
+            &&
+            window.navigator.userAgent.indexOf('iOS') == -1
+        ) {
+            const handleWindowMouseMove = (e: MouseEvent) => {
+                const coords = getCoordinates(e)
+                mouseCoords.current = {
+                    x: coords.x,
+                    y: coords.y,
+                };
+            };
+            window.addEventListener('mousemove', handleWindowMouseMove);
+
+            return () => {
+                window.removeEventListener(
+                    'mousemove',
+                    handleWindowMouseMove,
+                );
+            };
+        }
+    }, []);
+
+    return (
+        <div ref={containerRef} style={{ position: "relative", width: "100vw", height: "100vh" }}>
+            <button onClick={() => handleAddWindow(dummyAppWindow)}>Add window</button>
+            {windowIds.map((windowId: IWindow['id']) => {
+                return (
+                    <WindowFrame
+                        key={windowId}
+                        id={windowId}
+                        windowActions={windowActions}
+                    >
+                        {windowId}
+                    </WindowFrame>
+                )
+            })}
+        </div>
+    )
+}
+
+export default WindowStack
