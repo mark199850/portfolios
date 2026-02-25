@@ -1,10 +1,11 @@
 import './App.css'
-import WindowStack from './components/system/WindowStack/WindowStack.tsx';
+import { DesktopEnvironment } from './components/system/DesktopEnvironment/DesktopEnvironment.tsx';
+
 
 function App() {
     return (
         <>
-            <WindowStack></WindowStack>
+            <DesktopEnvironment />
         </>
     )
 }

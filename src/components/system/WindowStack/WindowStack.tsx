@@ -4,10 +4,8 @@ import type { IWindow } from '../../../core/interfaces/IWindow.ts'
 import { WindowFrame } from '../WindowFrame/WindowFrame.tsx'
 import { useEffect, useMemo, useRef } from 'react'
 import { useWindowManager } from '../../../hooks/useWindowManager.ts'
-import { PackageShortcut } from '../PackageShortcut/PackageShortcut.tsx'
 import { WindowContent } from '../WindowContent/WindowContent.tsx'
-import aboutIcon from "../../../assets/profile.png"
-import terminalIcon from "../../../assets/terminal.png"
+import './WindowStack.scss'
 
 type Coords = {
     x: number;
@@ -67,9 +65,7 @@ function WindowStack() {
     }, []);
 
     return (
-        <div ref={containerRef} style={{ position: "relative", width: "100vw", height: "100vh" }}>
-            <PackageShortcut icon={aboutIcon} packageId='about' />
-            <PackageShortcut icon={terminalIcon} packageId='terminal' />
+        <div ref={containerRef} className='window-stack_container'>
             {windowIds.map((windowId: IWindow['id']) => {
                 return (
                     <WindowFrame
