@@ -2,56 +2,46 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { IWindow } from '../interfaces/IWindow'
 
 type WindowSliceState = {
-    byId: Record<number, IWindow>
-    allIds: number[]
+    byId: Record<IWindow['id'], IWindow>
+    allIds: IWindow['id'][]
+    highestZIndex: number
 }
 const initialState: WindowSliceState = {
     byId: {},
-    allIds: []
+    allIds: [],
+    highestZIndex: 0
 }
 export const windowSlice = createSlice({
     name: 'window',
     initialState,
     reducers: {
         addWindow: (state, action: PayloadAction<IWindow>) => {
-            const window = action.payload
-            state.byId[window.id] = window
+            const window = action.payload;
+            state.highestZIndex += 1;
+            state.byId[window.id] = {
+                ...window,
+                zIndex: state.highestZIndex
+            }
             state.allIds.push(window.id)
         },
-        removeWindow: (state, action: PayloadAction<number>) => {
+        removeWindow: (state, action: PayloadAction<IWindow['id']>) => {
             const windowId = action.payload;
             delete state.byId[windowId]
             state.allIds = state.allIds.filter(id => id !== windowId)
         },
-        setWindowState: (state, action: PayloadAction<Pick<IWindow, 'id' | 'state'>>) => {
-            const { id, state: windowState } = action.payload;
-
-            const window = state.byId[id];
-            if (window) {
-                window.state = windowState
-            }
-        },
-        setWindowSize: (state, action: PayloadAction<Pick<IWindow, 'id' | 'size'>>) => {
-            const { id, size } = action.payload;
-
-            const window = state.byId[id];
-            if (window) {
-                window.size = size
-            }
-        },
-        setWindowPosition: (state, action: PayloadAction<Pick<IWindow, 'id' | 'position'>>) => {
-            const { id, position } = action.payload;
-            const window = state.byId[id];
-            if (window) {
-                window.position = position
-            }
-        },
-        bringWindowToTop: (state, action: PayloadAction<Pick<IWindow, 'id' | 'zIndex'>>) => {
-            const { id, zIndex } = action.payload;
+        bringWindowToTop: (state, action: PayloadAction<Pick<IWindow, 'id'>>) => {
+            const { id } = action.payload;
 
             const window = state.byId[id]
-            if (window) {
-                window.zIndex = zIndex;
+            if (window && window.zIndex < state.highestZIndex) {
+                window.zIndex = state.highestZIndex + 1;
+                state.highestZIndex += 1
+            }
+        },
+        updateWindow: (state, action: PayloadAction<Partial<IWindow> & { id: IWindow['id'] }>) => {
+            const { id, ...changes } = action.payload;
+            if (state.byId[id]) {
+                state.byId[id] = { ...state.byId[id], ...changes };
             }
         }
 
@@ -59,6 +49,6 @@ export const windowSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addWindow, removeWindow, setWindowState, setWindowSize, setWindowPosition, bringWindowToTop } = windowSlice.actions
+export const { addWindow, removeWindow, bringWindowToTop, updateWindow } = windowSlice.actions
 
 export default windowSlice.reducer

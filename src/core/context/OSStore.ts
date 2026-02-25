@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import windowReducer from "./WindowSlice.ts"
+import processReducer from "./ProcessSlice.ts"
 
 export const store = configureStore({
     reducer: {
         window: windowReducer,
+        process: processReducer,
     },
 })
 
