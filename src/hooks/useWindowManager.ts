@@ -3,13 +3,25 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../core/context/OSStore";
 import type { IWindow } from "../core/interfaces/IWindow.ts";
+import type { IProcess } from '../core/interfaces/IProcess.ts';
+import type { IPackage } from '../core/interfaces/IPackage.ts';
 
 function useWindowManager() {
 
     const dispatch = useDispatch<AppDispatch>()
 
-    const handleAddWindow = useCallback((window: IWindow) => {
-        dispatch(addWindow({ ...window, id: crypto.randomUUID() }));
+    const handleAddWindow = useCallback((processId: IProcess["id"], title: IPackage['name'], icon: IPackage['iconUrl']) => {
+        dispatch(addWindow({
+            title,
+            processId,
+            id: crypto.randomUUID(),
+            position: { x: 100, y: 100 },
+            zIndex: 0,
+            isFocused: true,
+            size: { x: 400, y: 300 },
+            state: "small",
+            icon
+        }));
     }, [dispatch])
 
     const handleCloseWindow = useCallback((id: IWindow['id']) => {
@@ -37,14 +49,14 @@ function useWindowManager() {
     }, [dispatch])
 
 
-    return [
+    return {
         handleAddWindow,
         handleCloseWindow,
         handleBringWindowToTop,
         handleSetWindowState,
         handleSetWindowSize,
         handleSetWindowPosition,
-    ] as const
+    }
 }
 
 export { useWindowManager }

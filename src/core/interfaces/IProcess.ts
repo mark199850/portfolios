@@ -1,5 +1,5 @@
 export interface IProcess {
-    pid: string;
-    appId: string;
+    id: string;
+    packageId: string;
     isBackground: boolean;
 }

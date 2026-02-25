@@ -4,33 +4,26 @@ import type { IWindow } from '../../../core/interfaces/IWindow.ts'
 import { WindowFrame } from '../WindowFrame/WindowFrame.tsx'
 import { useEffect, useMemo, useRef } from 'react'
 import { useWindowManager } from '../../../hooks/useWindowManager.ts'
+import { PackageShortcut } from '../PackageShortcut/PackageShortcut.tsx'
+import { WindowContent } from '../WindowContent/WindowContent.tsx'
+import aboutIcon from "../../../assets/profile.png"
+import terminalIcon from "../../../assets/terminal.png"
 
 type Coords = {
     x: number;
     y: number;
 }
-const dummyAppWindow: IWindow = {
-    id: "test",
-    processId: 1001,
-    isFocused: true,
-    size: { x: 300, y: 300 },
-    title: 'DummyApp',
-    zIndex: 100,
-    state: 'small',
-    position: { x: 20, y: 30 },
-}
 
 function WindowStack() {
     const windowIds = useSelector((state: RootState) => state.window.allIds)
 
-    const [
-        handleAddWindow,
+    const {
         handleCloseWindow,
         handleBringWindowToTop,
         handleSetWindowState,
         handleSetWindowSize,
         handleSetWindowPosition,
-    ] = useWindowManager();
+    } = useWindowManager();
 
     const windowActions = useMemo(() => ({
         close: handleCloseWindow,
@@ -75,7 +68,8 @@ function WindowStack() {
 
     return (
         <div ref={containerRef} style={{ position: "relative", width: "100vw", height: "100vh" }}>
-            <button onClick={() => handleAddWindow(dummyAppWindow)}>Add window</button>
+            <PackageShortcut icon={aboutIcon} packageId='about' />
+            <PackageShortcut icon={terminalIcon} packageId='terminal' />
             {windowIds.map((windowId: IWindow['id']) => {
                 return (
                     <WindowFrame
@@ -83,7 +77,7 @@ function WindowStack() {
                         id={windowId}
                         windowActions={windowActions}
                     >
-                        {windowId}
+                        <WindowContent windowId={windowId} />
                     </WindowFrame>
                 )
             })}
