@@ -30,7 +30,7 @@ const WindowFrame = memo(function WindowFrame({ children, id, windowActions }: W
 
     return (
         <Rnd
-            bounds="window"
+            bounds="parent"
             minHeight={200}
             minWidth={600}
             size={

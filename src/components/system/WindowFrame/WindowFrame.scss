@@ -25,7 +25,8 @@
 
 .rnd {
   transition: transform var(--custom-animation), width var(--custom-animation), height var(--custom-animation);
-  
+  pointer-events: auto;
+
   &.dragging {
     transition: none;
   }
