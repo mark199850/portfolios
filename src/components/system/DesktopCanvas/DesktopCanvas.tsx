@@ -3,6 +3,7 @@ import WindowStack from "../WindowStack/WindowStack";
 import './DesktopCanvas.scss'
 import aboutIcon from "../../../assets/profile.png"
 import terminalIcon from "../../../assets/terminal.png"
+import { Taskbar } from "../Taskbar";
 
 function DesktopCanvas() {
     return (
@@ -10,6 +11,7 @@ function DesktopCanvas() {
             <PackageShortcut icon={aboutIcon} packageId='about' />
             <PackageShortcut icon={terminalIcon} packageId='terminal' />
             <WindowStack />
+            <Taskbar />
         </div>
     )
 }

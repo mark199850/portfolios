@@ -8,7 +8,8 @@ export interface IWindow {
     icon: IPackage['iconUrl']
     position: { x: number, y: number };
     size: { x: number, y: number };
-    state: 'minimized' | 'maximized' | 'small' | 'closing';
-    isFocused: boolean;
+    sizingMode: 'small' | 'maximized';
+    isMinimized: boolean;
+    isClosing: boolean;
     zIndex: number;
 }

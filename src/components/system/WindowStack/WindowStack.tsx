@@ -18,18 +18,20 @@ function WindowStack() {
     const {
         handleCloseWindow,
         handleBringWindowToTop,
-        handleSetWindowState,
+        handleSetWindowSizingMode,
         handleSetWindowSize,
         handleSetWindowPosition,
+        handleMinimizeWindow
     } = useWindowManager();
 
     const windowActions = useMemo(() => ({
         close: handleCloseWindow,
         bringWindowToTop: handleBringWindowToTop,
-        setWindowState: handleSetWindowState,
+        setWindowSizingMode: handleSetWindowSizingMode,
         setWindowSize: handleSetWindowSize,
         setWindowPosition: handleSetWindowPosition,
-    }), [handleCloseWindow, handleBringWindowToTop, handleSetWindowState, handleSetWindowSize, handleSetWindowPosition]);
+        minimizeWindow: handleMinimizeWindow
+    }), [handleCloseWindow, handleBringWindowToTop, handleSetWindowSizingMode, handleSetWindowSize, handleSetWindowPosition, handleMinimizeWindow]);
 
     const containerRef = useRef<HTMLDivElement>(null)
     const mouseCoords = useRef<Coords>({ x: 0, y: 0 });

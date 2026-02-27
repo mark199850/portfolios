@@ -1,4 +1,4 @@
-import { addWindow, bringWindowToTop, removeWindow, updateWindow } from '../core/context/WindowSlice.ts'
+import { addWindow, bringWindowToTop, minimizeWindow, removeWindow, unMinimizeWindow, updateWindow } from '../core/context/WindowSlice.ts'
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../core/context/OSStore";
@@ -17,27 +17,36 @@ function useWindowManager() {
             id: crypto.randomUUID(),
             position: { x: 100, y: 100 },
             zIndex: 0,
-            isFocused: true,
             size: { x: 400, y: 300 },
-            state: "small",
-            icon
+            icon,
+            isClosing: false,
+            isMinimized: false,
+            sizingMode: 'small',
         }));
     }, [dispatch])
 
     const handleCloseWindow = useCallback((id: IWindow['id']) => {
-        dispatch(updateWindow({ id, state: "closing" }));
+        dispatch(updateWindow({ id, isClosing: true }));
         setTimeout(() => {
             dispatch(removeWindow(id))
         }, 300)
 
     }, [dispatch])
 
-    const handleBringWindowToTop = useCallback((windowId: IWindow['id']) => {
-        dispatch(bringWindowToTop({ id: windowId }))
+    const handleBringWindowToTop = useCallback((id: IWindow['id']) => {
+        dispatch(bringWindowToTop({ id }))
     }, [dispatch])
 
-    const handleSetWindowState = useCallback((id: IWindow['id'], state: IWindow['state']) => {
-        dispatch(updateWindow({ id, state }))
+    const handleMinimizeWindow = useCallback((id: IWindow['id']) => {
+        dispatch(minimizeWindow(id))
+    }, [dispatch])
+
+    const handleUnMinimizeWindow = useCallback((id: IWindow['id']) => {
+        dispatch(unMinimizeWindow(id))
+    }, [dispatch])
+
+    const handleSetWindowSizingMode = useCallback((id: IWindow['id'], sizingMode: IWindow['sizingMode']) => {
+        dispatch(updateWindow({ id, sizingMode }))
     }, [dispatch])
 
     const handleSetWindowSize = useCallback((id: IWindow['id'], size: IWindow['size']) => {
@@ -53,7 +62,9 @@ function useWindowManager() {
         handleAddWindow,
         handleCloseWindow,
         handleBringWindowToTop,
-        handleSetWindowState,
+        handleMinimizeWindow,
+        handleUnMinimizeWindow,
+        handleSetWindowSizingMode,
         handleSetWindowSize,
         handleSetWindowPosition,
     }
