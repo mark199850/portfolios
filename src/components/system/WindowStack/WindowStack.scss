@@ -2,6 +2,6 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  height: 100%;
+  height: calc(100% - 40px);
   width: 100%;
 }

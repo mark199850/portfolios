@@ -38,7 +38,6 @@ export const processSlice = createSlice({
     },
 })
 
-// Action creators are generated for each case reducer function
 export const { spawnProcess, killProcess } = processSlice.actions
 
 export default processSlice.reducer
