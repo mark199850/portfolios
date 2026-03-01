@@ -19,7 +19,7 @@ export function WindowStack() {
 
     const getCoordinates = (e: MouseEvent | TouchEvent) => {
         if ('touches' in e) {
-            return { x: e.touches[0].clientX, y: e.touches[0].clientY }
+            return { x: e.touches[0]?.clientX ?? 0, y: e.touches[0]?.clientY ?? 0 }
         }
         return { x: e.clientX, y: e.clientY }
     }

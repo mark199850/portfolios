@@ -21,12 +21,7 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
 
     if (!packageId) return null
 
-    const PackageComponent = hardDrive[packageId].component
+    const PackageComponent = hardDrive[packageId]?.component
 
-    if (!PackageComponent) return null
-    return (
-        <div>
-            {PackageComponent ? <PackageComponent /> : <p>Loading...</p>}
-        </div>
-    )
+    return PackageComponent ? <PackageComponent /> : <p>Loading...</p>
 }

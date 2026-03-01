@@ -18,6 +18,8 @@ export const WindowFrame = memo(function WindowFrame({ children, id }: WindowFra
 
     const [isGrabbing, setIsGrabbing] = useState(false);
 
+    if (!windowData) return null
+
     const handleBringWindowToTop = () => {
         executeWindowAction({ type: "BRING_WINDOW_TO_TOP", windowId: windowData.id });
     };
