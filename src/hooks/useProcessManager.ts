@@ -5,24 +5,28 @@ import { killProcess, spawnProcess } from "../core/context/ProcessSlice"
 import type { IPackage } from "../core/interfaces/IPackage"
 import type { IProcess } from "../core/interfaces/IProcess"
 
+type ProcessActionMap =
+    | { type: 'SPAWN_PROCESS', packageId: IPackage['id'] }
+    | { type: 'KILL_PROCESS', processId: IProcess['id'] }
+
 function useProcessManager() {
 
     const dispatch = useDispatch<AppDispatch>()
 
-    const handleStartProcess = useCallback((packageId: IPackage['id']) => {
-        const processId = crypto.randomUUID();
-        dispatch(spawnProcess({ packageId, processId }))
-        return processId;
+    const executeProcessAction = useCallback((action: ProcessActionMap) => {
+        switch (action.type) {
+            case 'SPAWN_PROCESS': {
+                const processId = crypto.randomUUID();
+                dispatch(spawnProcess({ packageId: action.packageId, processId }))
+                return processId;
+            };
+            case 'KILL_PROCESS': {
+                dispatch(killProcess(action.processId))
+                return;
+            };
+        }
     }, [dispatch])
 
-    const handleKillProcess = useCallback((processId: IProcess['id']) => {
-        dispatch(killProcess(processId))
-    }, [dispatch])
-
-    return [
-        handleStartProcess,
-        handleKillProcess
-    ] as const
+    return { executeProcessAction }
 }
-
 export { useProcessManager }

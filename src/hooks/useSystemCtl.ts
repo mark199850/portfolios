@@ -6,29 +6,30 @@ import { useWindowManager } from "./useWindowManager";
 
 export function useSystemCtl() {
 
-    const [handleStartProcess, handleKillProcess] = useProcessManager();
+    const { executeProcessAction } = useProcessManager();
     const { executeWindowAction } = useWindowManager();
 
     const startService = (packageId: IPackage["id"]) => {
-        const packageToBeLaunched = hardDrive[packageId];
-        if (!packageToBeLaunched) {
-            throw new Error("Package not found")
+        const targetPackage = hardDrive[packageId];
+        if (!targetPackage) {
+            throw new Error(`Package with id "${packageId}" not found`);
         }
 
-        const startedProcess = handleStartProcess(packageId)
-        if (!packageToBeLaunched.isBackgroundService) {
+        const spawnedProcessId = executeProcessAction({ type: 'SPAWN_PROCESS', packageId })
+        if (!spawnedProcessId) return
+        if (!targetPackage.isBackgroundService) {
             executeWindowAction({
                 type: 'ADD_WINDOW',
-                processId: startedProcess,
-                icon: packageToBeLaunched.iconUrl,
-                title: packageToBeLaunched.name
+                processId: spawnedProcessId,
+                icon: targetPackage.iconUrl,
+                title: targetPackage.name
             })
         }
         return
     }
 
     const killService = (processId: IProcess["id"]) => {
-        handleKillProcess(processId)
+        executeProcessAction({ type: 'KILL_PROCESS', processId })
     }
 
     return {
