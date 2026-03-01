@@ -1,11 +1,11 @@
 import { PackageShortcut } from "../PackageShortcut/PackageShortcut";
-import WindowStack from "../WindowStack/WindowStack";
+import { WindowStack } from "../WindowStack/WindowStack";
 import './DesktopCanvas.scss'
 import aboutIcon from "../../../assets/profile.png"
 import terminalIcon from "../../../assets/terminal.png"
 import { Taskbar } from "../Taskbar";
 
-function DesktopCanvas() {
+export function DesktopCanvas() {
     return (
         <div className="desktop-canvas_container">
             <PackageShortcut icon={aboutIcon} packageId='about' />
@@ -15,5 +15,3 @@ function DesktopCanvas() {
         </div>
     )
 }
-
-export { DesktopCanvas }

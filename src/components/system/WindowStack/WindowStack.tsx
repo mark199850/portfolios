@@ -2,8 +2,7 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '../../../core/context/OSStore.ts'
 import type { IWindow } from '../../../core/interfaces/IWindow.ts'
 import { WindowFrame } from '../WindowFrame/WindowFrame.tsx'
-import { useEffect, useMemo, useRef } from 'react'
-import { useWindowManager } from '../../../hooks/useWindowManager.ts'
+import { useEffect, useRef } from 'react'
 import { WindowContent } from '../WindowContent/WindowContent.tsx'
 import './WindowStack.scss'
 
@@ -12,26 +11,8 @@ type Coords = {
     y: number;
 }
 
-function WindowStack() {
+export function WindowStack() {
     const windowIds = useSelector((state: RootState) => state.window.allIds)
-
-    const {
-        handleCloseWindow,
-        handleBringWindowToTop,
-        handleSetWindowSizingMode,
-        handleSetWindowSize,
-        handleSetWindowPosition,
-        handleMinimizeWindow
-    } = useWindowManager();
-
-    const windowActions = useMemo(() => ({
-        close: handleCloseWindow,
-        bringWindowToTop: handleBringWindowToTop,
-        setWindowSizingMode: handleSetWindowSizingMode,
-        setWindowSize: handleSetWindowSize,
-        setWindowPosition: handleSetWindowPosition,
-        minimizeWindow: handleMinimizeWindow
-    }), [handleCloseWindow, handleBringWindowToTop, handleSetWindowSizingMode, handleSetWindowSize, handleSetWindowPosition, handleMinimizeWindow]);
 
     const containerRef = useRef<HTMLDivElement>(null)
     const mouseCoords = useRef<Coords>({ x: 0, y: 0 });
@@ -73,7 +54,6 @@ function WindowStack() {
                     <WindowFrame
                         key={windowId}
                         id={windowId}
-                        windowActions={windowActions}
                     >
                         <WindowContent windowId={windowId} />
                     </WindowFrame>
@@ -82,5 +62,3 @@ function WindowStack() {
         </div>
     )
 }
-
-export default WindowStack

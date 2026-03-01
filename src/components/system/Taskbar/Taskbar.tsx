@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux"
 import type { RootState } from "../../../core/context/OSStore"
-import TaskbarShortcutContainer from "./TaskbarShortcutContainer"
+import { TaskbarShortcutContainer } from "./TaskbarShortcutContainer"
 import type { IWindow } from "../../../core/interfaces/IWindow"
 import "./Taskbar.scss"
 
-function Taskbar() {
+export function Taskbar() {
 
     const windowIds = useSelector((state: RootState) => state.window.allIds)
 
@@ -16,5 +16,3 @@ function Taskbar() {
         </div>
     )
 }
-
-export default Taskbar

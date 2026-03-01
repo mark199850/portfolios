@@ -27,10 +27,19 @@ const recalculateZIndex = (state: WindowSliceState) => {
     })
 
     state.focusedWindowId = highestZIndexWindowId;
-
 }
 
-export const windowSlice = createSlice({
+const updateWindowById = <K extends keyof IWindow>(
+    state: WindowSliceState,
+    id: IWindow['id'],
+    changes: Pick<IWindow, K>
+) => {
+    const window = state.byId[id]
+    if (!window) return
+    state.byId[id] = { ...window, ...changes }
+}
+
+const windowSlice = createSlice({
     name: 'window',
     initialState,
     reducers: {
@@ -44,17 +53,18 @@ export const windowSlice = createSlice({
             state.allIds.push(window.id)
             state.focusedWindowId = window.id
         },
+
         removeWindow: (state, action: PayloadAction<IWindow['id']>) => {
             const windowId = action.payload;
             delete state.byId[windowId]
             state.allIds = state.allIds.filter(id => id !== windowId)
-
             if (state.focusedWindowId === windowId) {
                 recalculateZIndex(state)
             }
         },
-        bringWindowToTop: (state, action: PayloadAction<Pick<IWindow, 'id'>>) => {
-            const { id } = action.payload;
+
+        bringWindowToTop: (state, action: PayloadAction<IWindow['id']>) => {
+            const id = action.payload;
 
             const window = state.byId[id]
             if (window && window.zIndex < state.highestZIndex) {
@@ -65,12 +75,27 @@ export const windowSlice = createSlice({
                 state.focusedWindowId = window.id
             }
         },
-        updateWindow: (state, action: PayloadAction<Partial<IWindow> & { id: IWindow['id'] }>) => {
-            const { id, ...changes } = action.payload;
-            if (state.byId[id]) {
-                state.byId[id] = { ...state.byId[id], ...changes };
-            }
+
+        setWindowPosition: (state, action: PayloadAction<Pick<IWindow, 'id' | 'position'>>) => {
+            const { id, position } = action.payload;
+            updateWindowById(state, id, { position });
         },
+
+        setWindowSize: (state, action: PayloadAction<Pick<IWindow, 'id' | 'size'>>) => {
+            const { id, size } = action.payload;
+            updateWindowById(state, id, { size });
+        },
+
+        setWindowSizingMode: (state, action: PayloadAction<Pick<IWindow, 'id' | 'sizingMode'>>) => {
+            const { id, sizingMode } = action.payload;
+            updateWindowById(state, id, { sizingMode });
+        },
+
+        markWindowAsClosing: (state, action: PayloadAction<Pick<IWindow, 'id' | 'isClosing'>>) => {
+            const { id, isClosing } = action.payload;
+            updateWindowById(state, id, { isClosing });
+        },
+
         minimizeWindow: (state, action: PayloadAction<IWindow['id']>) => {
             const id = action.payload;
             if (state.byId[id]) {
@@ -78,6 +103,7 @@ export const windowSlice = createSlice({
             }
             recalculateZIndex(state)
         },
+
         unMinimizeWindow: (state, action: PayloadAction<IWindow['id']>) => {
             const id = action.payload;
             const window = state.byId[id];
@@ -86,12 +112,20 @@ export const windowSlice = createSlice({
                 state.byId[id] = { ...window, isMinimized: false, zIndex: state.highestZIndex };
                 state.focusedWindowId = id;
             }
-
         }
-
     },
 })
 
-export const { addWindow, removeWindow, bringWindowToTop, updateWindow, minimizeWindow, unMinimizeWindow } = windowSlice.actions
+export const {
+    addWindow,
+    removeWindow,
+    bringWindowToTop,
+    setWindowPosition,
+    setWindowSize,
+    setWindowSizingMode,
+    markWindowAsClosing,
+    minimizeWindow,
+    unMinimizeWindow
+} = windowSlice.actions
 
-export default windowSlice.reducer
+export const windowSliceReducer = windowSlice.reducer

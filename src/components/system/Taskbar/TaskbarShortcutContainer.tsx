@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import type { IWindow } from '../../../core/interfaces/IWindow'
 import type { RootState } from '../../../core/context/OSStore';
 import { hardDrive } from '../../../core/hardDrive';
-import TaskbarShortcutButton from './TaskbarShortcutButton';
+import { TaskbarShortcutButton } from './TaskbarShortcutButton';
 import { useWindowManager } from '../../../hooks/useWindowManager';
 import { useCallback } from 'react';
 
@@ -10,9 +10,9 @@ type TaskbarShortcutProps = {
     windowId: IWindow['id'];
 }
 
-function TaskbarShortcutContainer({ windowId }: TaskbarShortcutProps) {
+export function TaskbarShortcutContainer({ windowId }: TaskbarShortcutProps) {
 
-    const { handleMinimizeWindow, handleUnMinimizeWindow, handleBringWindowToTop } = useWindowManager()
+    const { executeWindowAction } = useWindowManager()
 
     const selection = useSelector((state: RootState) => {
         const windowData = state.window.byId[windowId]
@@ -30,17 +30,18 @@ function TaskbarShortcutContainer({ windowId }: TaskbarShortcutProps) {
         if (!selection) return;
 
         if (selection.windowMinimizedState) {
-            handleUnMinimizeWindow(windowId);
+            executeWindowAction({ type: 'UNMINIMIZE_WINDOW', windowId })
             return
         }
 
         if (!selection.windowMinimizedState && !selection.isWindowFocused) {
-            handleBringWindowToTop(windowId);
+            executeWindowAction({ type: 'BRING_WINDOW_TO_TOP', windowId })
             return
         }
 
-        handleMinimizeWindow(windowId);
-    }, [selection, windowId, handleUnMinimizeWindow, handleMinimizeWindow, handleBringWindowToTop]);
+        executeWindowAction({ type: 'MINIMIZE_WINDOW', windowId })
+
+    }, [selection, windowId, executeWindowAction]);
 
     if (!selection) return null
     const { isWindowFocused, packageId } = selection;
@@ -57,5 +58,3 @@ function TaskbarShortcutContainer({ windowId }: TaskbarShortcutProps) {
         </>
     )
 }
-
-export default TaskbarShortcutContainer

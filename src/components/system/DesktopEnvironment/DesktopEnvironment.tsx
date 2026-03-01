@@ -1,7 +1,7 @@
 import { DesktopCanvas } from "../DesktopCanvas/DesktopCanvas"
 import "./DesktopEnvironment.scss"
 
-function DesktopEnvironment() {
+export function DesktopEnvironment() {
 
     return (
         <div className="container">
@@ -10,5 +10,3 @@ function DesktopEnvironment() {
     )
 
 }
-
-export { DesktopEnvironment }

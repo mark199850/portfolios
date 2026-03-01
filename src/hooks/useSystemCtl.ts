@@ -4,10 +4,10 @@ import { useProcessManager } from "./useProcessManager";
 import type { IProcess } from "../core/interfaces/IProcess";
 import { useWindowManager } from "./useWindowManager";
 
-function useSystemCtl() {
+export function useSystemCtl() {
 
     const [handleStartProcess, handleKillProcess] = useProcessManager();
-    const { handleAddWindow } = useWindowManager();
+    const { executeWindowAction } = useWindowManager();
 
     const startService = (packageId: IPackage["id"]) => {
         const packageToBeLaunched = hardDrive[packageId];
@@ -17,8 +17,12 @@ function useSystemCtl() {
 
         const startedProcess = handleStartProcess(packageId)
         if (!packageToBeLaunched.isBackgroundService) {
-
-            handleAddWindow(startedProcess, packageToBeLaunched.name, packageToBeLaunched.iconUrl)
+            executeWindowAction({
+                type: 'ADD_WINDOW',
+                processId: startedProcess,
+                icon: packageToBeLaunched.iconUrl,
+                title: packageToBeLaunched.name
+            })
         }
         return
     }
@@ -32,6 +36,3 @@ function useSystemCtl() {
         killService
     }
 }
-
-export { useSystemCtl }
-
