@@ -81,9 +81,7 @@ function useWindowManager() {
     }, [dispatch]
     )
 
-    return {
-        executeWindowAction
-    }
+    return { executeWindowAction }
 }
 
 export { useWindowManager }

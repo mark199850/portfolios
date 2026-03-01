@@ -40,4 +40,4 @@ export const processSlice = createSlice({
 
 export const { spawnProcess, killProcess } = processSlice.actions
 
-export default processSlice.reducer
+export const processSliceReducer = processSlice.reducer
