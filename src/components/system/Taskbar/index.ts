@@ -1,2 +1,2 @@
-export { default as Taskbar } from './Taskbar.tsx'
-export { default as TaskbarShortcutContainer } from './TaskbarShortcutContainer.tsx'
+export { Taskbar } from './Taskbar.tsx'
+export { TaskbarShortcutContainer } from './TaskbarShortcutContainer.tsx'

@@ -5,7 +5,7 @@ type ProcessLauncherProps = {
     packageId: string;
 }
 
-function PackageShortcut({ icon, packageId }: ProcessLauncherProps) {
+export function PackageShortcut({ icon, packageId }: ProcessLauncherProps) {
     const { startService } = useSystemCtl()
 
     return (
@@ -15,5 +15,3 @@ function PackageShortcut({ icon, packageId }: ProcessLauncherProps) {
         </button>
     )
 }
-
-export { PackageShortcut }

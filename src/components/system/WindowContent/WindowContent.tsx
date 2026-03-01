@@ -7,7 +7,7 @@ type WindowCOntentProps = {
     windowId: IWindow['id']
 }
 
-function WindowContent({ windowId }: WindowCOntentProps) {
+export function WindowContent({ windowId }: WindowCOntentProps) {
 
     const packageId = useSelector((state: RootState) => {
         const windowData = state.window.byId[windowId]
@@ -30,5 +30,3 @@ function WindowContent({ windowId }: WindowCOntentProps) {
         </div>
     )
 }
-
-export { WindowContent }

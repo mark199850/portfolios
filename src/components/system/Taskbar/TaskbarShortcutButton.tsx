@@ -8,7 +8,7 @@ type TaskbarShortcutButtonProps = {
     isWindowFocused: boolean;
 }
 
-const TaskbarShortcutButton = memo(({ icon, handleFocusOrMinimize, isWindowFocused }: TaskbarShortcutButtonProps) => {
+export const TaskbarShortcutButton = memo(function TaskbarShortcutButton({ icon, handleFocusOrMinimize, isWindowFocused }: TaskbarShortcutButtonProps) {
 
     return (
         <div className={`taskbar-shortcut-button ${isWindowFocused && 'selected'}`}>
@@ -16,4 +16,3 @@ const TaskbarShortcutButton = memo(({ icon, handleFocusOrMinimize, isWindowFocus
         </div>
     )
 })
-export default TaskbarShortcutButton
