@@ -20,7 +20,7 @@ const recalculateZIndex = (state: WindowSliceState) => {
 
     state.allIds.forEach(id => {
         const win = state.byId[id];
-        if (win.zIndex > recalculatedHighestZIndex && !win.isMinimized) {
+        if (win && win.zIndex > recalculatedHighestZIndex && !win.isMinimized) {
             recalculatedHighestZIndex = win.zIndex;
             highestZIndexWindowId = win.id;
         }
