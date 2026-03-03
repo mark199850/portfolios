@@ -1,0 +1,106 @@
+@keyframes hint-rotate {
+  0% {
+    transform: rotate3d(0,1,0,0deg);
+  }
+  50%{
+    transform: rotate3d(0,1,0,-65deg);
+  }
+  100% {
+    transform: rotate3d(0,1,0,0deg);
+  }
+}
+
+.about-me_projects-page_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 80px;
+
+  .about-me_projects-page_project_item {
+    text-align:start;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+
+    .about-me_projects-page_project_item_logo {
+      display: flex;
+      align-items: center;
+      perspective: 300px;
+      min-width: 100px;
+      position:relative;
+      align-self: center;
+      height: 100px;
+
+      &.has-source-code{
+        
+        .about-me_projects-page_project_item_logo-img{
+          animation: hint-rotate 0.4s linear 0.2s;
+          transition: transform 300ms cubic-bezier(0.5,1,0,1);
+          transform-origin: left;
+          z-index: 2;
+        }
+        
+        &:hover .about-me_projects-page_project_item_logo-img{
+          transform: rotate3d(0,1,0,-70deg) !important;
+        }
+      }
+     
+      .about-me_projects-page_project_item_logo-img {
+        min-width: 100px;
+        height: 100px;
+        border-radius: 16px;
+      }
+
+      .about-me_projects-page_project_item_source-code_link {
+        display: flex;
+        align-items:center;
+        z-index: 1;
+        color: white;
+        font-weight: 800;
+        position: absolute;
+        align-self: center;
+        text-align: end;
+        width: 90px;
+        height: 100px;
+      }
+
+      .about-me_projects-page_project_item_source-code_bg {
+        z-index: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        align-self: center;
+      }
+    }
+
+    .about-me_projects-page_project_item_text {
+      text-align:start;
+
+      & h3 {
+        margin-top: 0;
+      }
+
+      & a {
+        font-size: 1.17em;
+      }
+
+      .about-me_projects-page_project_item_text_status {
+        color: color-mix(in srgb, rgba(0,0,0,1) 33%, white);
+      }
+
+      .about-me_projects-page_project_item_text_techstack_container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .about-me_projects-page_project_item_text_techstack_tag {
+          padding: 0 10px;
+          background-color: rgba(100,100,100, 0.5);
+          border-radius: 5px;
+          margin: 4px;
+        }
+      }
+    }
+  }
+}
