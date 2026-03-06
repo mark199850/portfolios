@@ -1,0 +1,107 @@
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+}
+
+:root {
+  // Animation
+  --duration: 500ms;
+  --slowing: cubic-bezier(0.2, 1, 0, 1);
+  --window-opening-animation: zoomIn var(--duration) var(--slowing);
+  --window-closing-animation: zoomOut var(--duration) var(--slowing);
+
+  // Geometry
+  --border-width: 0;
+  --window-border-width: 7px;
+  --border-radius: 10px;
+  --border: var(--border-width) solid var(--border-color);
+  --taskbar-height: 40px;
+
+  // Color
+  --theme: dark;
+  --background-image: url("./assets/wallpaper/wallpaper.jpg");
+  --accent-color: #3c4b33;
+  --primary-color: color-mix(
+    in srgb,
+    var(--accent-color) 75%,
+    rgba(0, 0, 0, 0.5)
+  );
+  --secondary-color: rgba(0, 0, 0, 0.3);
+  --active-color: var(--primary-color);
+  --hover-color: color-mix(in srgb, var(--primary-color) 33%, rgba(0, 0, 0, 0));
+  --text-color: rgba(255, 255, 255, 0.87);
+  --text-color-inactive: color-mix(
+    in srgb,
+    rgba(0, 0, 0, 1) 33%,
+    var(--text-color)
+  );
+  --border-color: grey;
+  color-scheme: var(--theme);
+
+  // Misc
+  --blur-amount: 30px;
+  --backdrop-filter: blur(var(--blur-amount));
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  overflow: hidden;
+
+  // Text
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+}
+
+button {
+  border-radius: var(--border-radius);
+  border: var(--border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}

@@ -7,7 +7,7 @@ export interface IWindow {
     title: IPackage['name'];
     icon: IPackage['iconUrl']
     position: { x: number, y: number };
-    size: { x: number, y: number };
+    size: { x: number | string, y: number | string };
     sizingMode: 'small' | 'maximized';
     isMinimized: boolean;
     isClosing: boolean;
