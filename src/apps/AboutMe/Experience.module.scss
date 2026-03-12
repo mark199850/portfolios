@@ -1,0 +1,55 @@
+.experienceList {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+
+  & > .item:first-child {
+    margin-top: auto;
+  }
+
+  & > .item:last-child {
+    margin-bottom: auto;
+  }
+}
+
+.item {
+  text-align: start;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  & img {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+
+  & h3 {
+    margin-top: 0px;
+  }
+}
+
+.tagList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 1px 5px;
+  background-color: rgba(100, 100, 100, 0.5);
+  border-radius: 5px;
+}

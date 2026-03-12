@@ -1,7 +1,7 @@
-.window-stack_container{
+.container {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  height: calc(100% - 40px);
+  height: calc(100% - var(--taskbar-height));
   width: 100%;
 }

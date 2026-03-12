@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+  padding: 20px;
+  width: fit-content;
+}
+
+.profileImageWrapper {
+  height: 100%;
+}
+
+.profileImage {
+  height: 160px;
+}
+
+.detailsWrapper {
+  text-align: start;
+}
+
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.description {
+  align-items: center;
+  text-align: justify;
+  text-align-last: center;
+}

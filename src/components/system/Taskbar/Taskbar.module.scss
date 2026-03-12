@@ -1,0 +1,10 @@
+.container {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  background-color: var(--secondary-color);
+  backdrop-filter: var(--backdrop-filter);
+  width: 100%;
+  height: var(--taskbar-height);
+  z-index: 9999;
+}
