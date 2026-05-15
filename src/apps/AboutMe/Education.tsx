@@ -33,9 +33,9 @@ const educations: Education[] = [
 export function Education() {
   return (
     <div className={styles.educationList}>
-      {educations.map((education) => {
+      {educations.map((education, index) => {
         return (
-          <div className={styles.item}>
+          <div key={index} className={styles.item}>
             <div className={styles.logo}>
               <img src={education.logo} alt="" />
             </div>
