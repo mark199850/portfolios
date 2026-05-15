@@ -45,9 +45,9 @@ const experiences: Experience[] = [
 export function Experience() {
   return (
     <div className={styles.experienceList}>
-      {experiences.map((experience) => {
+      {experiences.map((experience, index) => {
         return (
-          <div className={styles.item}>
+          <div key={index} className={styles.item}>
             <div className={styles.logo}>
               <img src={experience.logo} alt="" />
             </div>

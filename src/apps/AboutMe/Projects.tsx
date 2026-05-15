@@ -52,9 +52,9 @@ const projects: Project[] = [
 export function Projects() {
   return (
     <div className={styles.projectList}>
-      {projects.map((project) => {
+      {projects.map((project, index) => {
         return (
-          <div className={styles.item}>
+          <div key={index} className={styles.item}>
             <div
               className={`
                 ${styles.logo} ${project.sourceCode ? styles.hasSourceCode : ""}
@@ -88,16 +88,24 @@ export function Projects() {
               <p className={styles.techStack}>
                 Frontend:
                 <span>
-                  {project.frontend.map((tech) => {
-                    return <span className={styles.tag}>{tech}</span>;
+                  {project.frontend.map((tech, index) => {
+                    return (
+                      <span key={index} className={styles.tag}>
+                        {tech}
+                      </span>
+                    );
                   })}
                 </span>
               </p>
               <p className={styles.techStack}>
                 Backend:
                 <span>
-                  {project.backend.map((tech) => {
-                    return <span className={styles.tag}>{tech}</span>;
+                  {project.backend.map((tech, index) => {
+                    return (
+                      <span key={index} className={styles.tag}>
+                        {tech}
+                      </span>
+                    );
                   })}
                 </span>
               </p>
