@@ -1,5 +1,6 @@
 import { useState, type ElementType } from "react";
 import styles from "./AboutMe.module.scss";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { Profile } from "./Profile";
 import { Experience } from "./Experience";
 import { Education } from "./Education";
@@ -32,9 +33,16 @@ function AboutMe() {
         })}
       </div>
 
-      <div className={styles.contentArea}>
-        {ActiveContentComponent ? <ActiveContentComponent /> : null}
-      </div>
+      <OverlayScrollbarsComponent
+        defer
+        element="div"
+        className={styles.scrollWrapper}
+        options={{ scrollbars: { theme: "os-theme-light" } }}
+      >
+        <div className={styles.contentArea}>
+          {ActiveContentComponent ? <ActiveContentComponent /> : null}
+        </div>
+      </OverlayScrollbarsComponent>
     </div>
   );
 }
