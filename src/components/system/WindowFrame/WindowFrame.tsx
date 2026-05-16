@@ -67,7 +67,7 @@ export const WindowFrame = memo(function WindowFrame({
   return (
     <Rnd
       bounds="parent"
-      minHeight={200}
+      minHeight={250}
       minWidth={60}
       size={
         windowData.sizingMode == "maximized"

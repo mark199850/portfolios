@@ -16,7 +16,6 @@
   max-width: 300px;
   min-width: 170px;
   justify-content: space-evenly;
-  overflow: scroll;
   gap: 7px;
 }
 
@@ -48,15 +47,24 @@
   }
 }
 
-.contentArea {
-  display: flex;
+.scrollWrapper {
   flex: 7;
   border: var(--border);
-  margin: 0;
-  padding: 50px 10%;
   border-radius: var(--border-radius);
   background-color: var(--secondary-color);
-  overflow: scroll;
+  height: 100%;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  padding: 50px 10%;
+  min-height: 100%;
 
   & > div:first-child {
     margin-left: auto;
