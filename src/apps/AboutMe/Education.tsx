@@ -32,10 +32,10 @@ const educations: Education[] = [
 
 export function Education() {
   return (
-    <div className={styles.educationList}>
-      {educations.map((education, index) => {
+    <ul className={styles.educationList}>
+      {educations.map((education) => {
         return (
-          <div key={index} className={styles.item}>
+          <li key={education.school} className={styles.item}>
             <div className={styles.logo}>
               <img src={education.logo} alt="" />
             </div>
@@ -55,9 +55,9 @@ export function Education() {
                 })}
               </div>
             </div>
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }

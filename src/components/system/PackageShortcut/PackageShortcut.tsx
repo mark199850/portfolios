@@ -2,6 +2,7 @@ import { useSystemCtl } from "../../../hooks/useSystemCtl";
 import { useDraggable, useDroppable } from "@dnd-kit/react";
 import styles from "./PackageShortcut.module.scss";
 import React from "react";
+import { Button } from "@base-ui/react";
 type ProcessLauncherProps = {
   icon: string;
   packageId: string;
@@ -32,7 +33,7 @@ export const PackageShortcut = React.memo(function PackageShortcut({
   }
 
   return (
-    <button ref={setNodeRef} onClick={() => startService(packageId)}>
+    <Button ref={setNodeRef} onClick={() => startService(packageId)}>
       <img
         className={styles.iconImg}
         draggable="false"
@@ -41,6 +42,6 @@ export const PackageShortcut = React.memo(function PackageShortcut({
         height={40}
       />
       {packageName}
-    </button>
+    </Button>
   );
 });

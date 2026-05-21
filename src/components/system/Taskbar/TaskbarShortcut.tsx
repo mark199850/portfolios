@@ -5,6 +5,7 @@ import { hardDrive } from "../../../core/hardDrive";
 import { useWindowManager } from "../../../hooks/useWindowManager";
 import { useCallback, memo } from "react";
 import styles from "./TaskbarShortcut.module.scss";
+import { Button } from "@base-ui/react";
 
 type TaskbarShortcutProps = {
   windowId: IWindow["id"];
@@ -50,11 +51,11 @@ export const TaskbarShortcut = memo(function TaskbarShortcut({
   const icon = hardDrive[packageId]?.iconUrl;
 
   return (
-    <button
+    <Button
       className={`${styles.button} ${isWindowFocused ? styles.selected : ""}`}
       onClick={handleFocusOrMinimize}
     >
       <img className={styles.icon} src={icon} alt="" />
-    </button>
+    </Button>
   );
 });

@@ -9,18 +9,18 @@ export function Profile() {
           <img className={styles.profileImage} src={ProfileIcon} alt="" />
         </div>
         <div className={styles.detailsWrapper}>
-          <h3 className={styles.label}>
-            Name:
-            <span>Pócs Márk</span>
-          </h3>
-          <h3 className={styles.label}>
-            Role:
-            <span>Software Developer</span>
-          </h3>
-          <h3 className={styles.label}>
-            Experience:
-            <span>2.5 years</span>
-          </h3>
+          <div className={styles.detailRow}>
+            <dt className={styles.label}>Name:</dt>
+            <dd>Pócs Márk</dd>
+          </div>
+          <div className={styles.detailRow}>
+            <dt className={styles.label}>Role:</dt>
+            <dd>Software Developer</dd>
+          </div>
+          <div className={styles.detailRow}>
+            <dt className={styles.label}>Experience:</dt>
+            <dd>2.5 years</dd>
+          </div>
         </div>
       </div>
       <p className={styles.description}>

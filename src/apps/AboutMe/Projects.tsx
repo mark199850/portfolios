@@ -18,9 +18,9 @@ type Project = {
 const projects: Project[] = [
   {
     logo: PortfoliOSLogo,
-    link: "portfolios.hu",
+    link: "https://main-portfolios.mark199850.workers.dev/",
     name: "PortfoliOS",
-    status: "v0.2.0, WIP",
+    status: "v0.3.2, WIP",
     frontend: ["React", "Vite", "Redux"],
     backend: ["TBD"],
     description: "An OS-like web application",
@@ -51,10 +51,10 @@ const projects: Project[] = [
 
 export function Projects() {
   return (
-    <div className={styles.projectList}>
-      {projects.map((project, index) => {
+    <ul className={styles.projectList}>
+      {projects.map((project) => {
         return (
-          <div key={index} className={styles.item}>
+          <li key={project.name} className={styles.item}>
             <div
               className={`
                 ${styles.logo} ${project.sourceCode ? styles.hasSourceCode : ""}
@@ -66,19 +66,29 @@ export function Projects() {
                   <a
                     href={project.sourceCode}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className={styles.sourceCodeLink}
                   >
                     Source code
                   </a>
-                  <img className={styles.sourceCodeBg} src={CodeLogoSvg}></img>
+                  <img
+                    className={styles.sourceCodeBg}
+                    src={CodeLogoSvg}
+                    alt=""
+                  ></img>
                 </>
               )}
             </div>
             <div className={styles.text}>
               <h3>
                 {project.link ? (
-                  <a href={project.link}>{project.name}</a>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.name}
+                  </a>
                 ) : (
                   project.name
                 )}
@@ -88,9 +98,9 @@ export function Projects() {
               <p className={styles.techStack}>
                 Frontend:
                 <span>
-                  {project.frontend.map((tech, index) => {
+                  {project.frontend.map((tech) => {
                     return (
-                      <span key={index} className={styles.tag}>
+                      <span key={tech} className={styles.tag}>
                         {tech}
                       </span>
                     );
@@ -100,9 +110,9 @@ export function Projects() {
               <p className={styles.techStack}>
                 Backend:
                 <span>
-                  {project.backend.map((tech, index) => {
+                  {project.backend.map((tech) => {
                     return (
-                      <span key={index} className={styles.tag}>
+                      <span key={tech} className={styles.tag}>
                         {tech}
                       </span>
                     );
@@ -110,9 +120,9 @@ export function Projects() {
                 </span>
               </p>
             </div>
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }
