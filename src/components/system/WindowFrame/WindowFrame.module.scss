@@ -2,8 +2,8 @@
   --buttons-width: 150px;
 }
 
-$handle-size: 15px;
-$handle-offset: calc(0.5 * (#{$handle-size} * -1));
+$handle-size: 20px;
+$handle-offset: calc(0.8 * (#{$handle-size} * -1));
 
 // --- Resize handles - Edges ---
 .handleTop {

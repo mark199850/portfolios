@@ -44,6 +44,11 @@
   --secondary-color: rgba(0, 0, 0, 0.3);
   --active-color: var(--primary-color);
   --hover-color: color-mix(in srgb, var(--primary-color) 33%, rgba(0, 0, 0, 0));
+  --highlight-color: color-mix(
+    in srgb,
+    var(--primary-color) 83%,
+    rgba(255, 255, 255, 1)
+  );
   --text-color: rgba(255, 255, 255, 0.87);
   --text-color-inactive: color-mix(
     in srgb,

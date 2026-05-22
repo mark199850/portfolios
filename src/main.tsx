@@ -4,7 +4,6 @@ import "./index.scss";
 import App from "./App.tsx";
 import { store } from "./core/context/OSStore.ts";
 import { Provider } from "react-redux";
-import "overlayscrollbars/overlayscrollbars.css";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>

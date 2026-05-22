@@ -5,6 +5,7 @@ import { Rnd } from "react-rnd";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../core/context/OSStore.ts";
 import { useWindowManager } from "../../../hooks/useWindowManager.ts";
+import { Button } from "@base-ui/react";
 
 type WindowFrameProps = {
   id: IWindow["id"];
@@ -117,19 +118,19 @@ export const WindowFrame = memo(function WindowFrame({
             <p className={styles.title}>{windowData.title}</p>
           </div>
           <div className={styles.buttons}>
-            <button
+            <Button
               className={styles.minimizeButton}
               onClick={handleMinimizeWindow}
             >
               _
-            </button>
-            <button
+            </Button>
+            <Button
               className={styles.maximizeButton}
               onClick={handleToggleWindowSizingMode}
             >
-              O
-            </button>
-            <button
+              o
+            </Button>
+            <Button
               className={styles.closeButton}
               onClick={(e) => {
                 handleCloseWindow();
@@ -137,7 +138,7 @@ export const WindowFrame = memo(function WindowFrame({
               }}
             >
               x
-            </button>
+            </Button>
           </div>
         </div>
         <div className={styles.content}>{children}</div>

@@ -16,10 +16,11 @@
   max-width: 300px;
   min-width: 170px;
   justify-content: space-evenly;
+  overflow: scroll;
   gap: 7px;
 }
 
-.menuButton {
+.tabButton {
   flex: 1;
   border: var(--border);
   border-radius: var(--border-radius);
@@ -33,13 +34,13 @@
   font-size: 1.125em;
   will-change: flex-grow, font-size;
 
-  &:hover:not(.active) {
+  &:hover:not([data-active]) {
     border: var(--border);
     background-color: var(--hover-color);
     font-size: 1.25em;
   }
 
-  &.active {
+  &[data-active] {
     flex: 1.5;
     background-color: var(--active-color);
     font-size: 1.5em;
@@ -47,29 +48,92 @@
   }
 }
 
-.scrollWrapper {
+.tabPanel {
+  display: flex;
   flex: 7;
   border: var(--border);
+  margin: 0;
   border-radius: var(--border-radius);
   background-color: var(--secondary-color);
-  height: 100%;
-
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.contentArea {
-  display: flex;
-  flex-direction: column;
-  padding: 50px 10%;
-  min-height: 100%;
+  overflow: scroll;
 
   & > div:first-child {
     margin-left: auto;
   }
   & > div:last-child {
     margin-right: auto;
+  }
+}
+
+.contentScrollArea {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.contentViewport {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 50px 10%;
+  margin: 0;
+  & > * {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+.scrollbar {
+  display: flex;
+  padding: 0;
+  border-radius: 0.375rem;
+  opacity: 0;
+  transition: opacity 150ms;
+  pointer-events: none;
+  &[data-scrolling] {
+    transition-duration: 0ms;
+  }
+  &[data-hovering],
+  &[data-scrolling] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &[data-orientation="horizontal"] {
+    height: 0.35rem;
+    cursor: grabbing;
+
+    &:hover {
+      height: 0.5rem;
+    }
+  }
+  &[data-orientation="vertical"] {
+    width: 0.35rem;
+    cursor: grabbing;
+
+    &:hover {
+      width: 0.5rem;
+    }
+  }
+}
+
+.thumb {
+  width: 100%;
+  border-radius: inherit;
+  background-color: var(--primary-color);
+
+  &:hover {
+    background-color: var(--highlight-color);
   }
 }

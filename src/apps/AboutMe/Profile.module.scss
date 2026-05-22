@@ -23,7 +23,26 @@
 }
 
 .detailsWrapper {
+  display: flex;
+  flex-direction: column;
   text-align: start;
+  gap: 15px;
+}
+
+.detailRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+  font-size: 1.17rem;
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin: 0;
+  }
 }
 
 .label {

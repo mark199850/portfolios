@@ -1,10 +1,10 @@
-import { useState, type ElementType } from "react";
+import { type ElementType } from "react";
 import styles from "./AboutMe.module.scss";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { Profile } from "./Profile";
 import { Experience } from "./Experience";
 import { Education } from "./Education";
 import { Projects } from "./Projects";
+import { ScrollArea, Tabs } from "@base-ui/react";
 
 const tabs: Record<string, ElementType> = {
   Profile: Profile,
@@ -14,36 +14,46 @@ const tabs: Record<string, ElementType> = {
 };
 
 function AboutMe() {
-  const [activeTab, setActiveTab] = useState("Profile");
-  const ActiveContentComponent = tabs[activeTab];
-
   return (
-    <div className={styles.container}>
-      <div className={styles.sidePanel}>
+    <Tabs.Root defaultValue="Profile" className={styles.container}>
+      <Tabs.List className={styles.sidePanel}>
         {Object.keys(tabs).map((tabName) => {
           return (
-            <button
+            <Tabs.Tab
               key={tabName}
-              className={`${styles.menuButton} ${activeTab === tabName ? styles.active : ""}`}
-              onClick={() => setActiveTab(tabName)}
+              className={styles.tabButton}
+              value={tabName}
             >
               {tabName}
-            </button>
+            </Tabs.Tab>
           );
         })}
-      </div>
-
-      <OverlayScrollbarsComponent
-        defer
-        element="div"
-        className={styles.scrollWrapper}
-        options={{ scrollbars: { theme: "os-theme-light" } }}
-      >
-        <div className={styles.contentArea}>
-          {ActiveContentComponent ? <ActiveContentComponent /> : null}
-        </div>
-      </OverlayScrollbarsComponent>
-    </div>
+      </Tabs.List>
+      {Object.entries(tabs).map(([tabName, Component]) => (
+        <Tabs.Panel key={tabName} value={tabName} className={styles.tabPanel}>
+          <ScrollArea.Root className={styles.contentScrollArea}>
+            <ScrollArea.Viewport className={styles.contentViewport}>
+              <ScrollArea.Content className={styles.content}>
+                <Component />
+              </ScrollArea.Content>
+            </ScrollArea.Viewport>
+            <ScrollArea.Scrollbar
+              className={styles.scrollbar}
+              orientation="vertical"
+            >
+              <ScrollArea.Thumb className={styles.thumb} />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Scrollbar
+              className={styles.scrollbar}
+              orientation="horizontal"
+            >
+              <ScrollArea.Thumb className={styles.thumb} />
+            </ScrollArea.Scrollbar>
+            <ScrollArea.Corner />
+          </ScrollArea.Root>
+        </Tabs.Panel>
+      ))}
+    </Tabs.Root>
   );
 }
 

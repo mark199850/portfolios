@@ -1,7 +1,7 @@
 {
   "name": "portfolios",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@base-ui/react": "^1.4.1",
     "@dnd-kit/react": "^0.3.2",
     "@reduxjs/toolkit": "^2.11.2",
-    "overlayscrollbars-react": "^0.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0",
