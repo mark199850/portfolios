@@ -2,6 +2,7 @@ import { PackageShortcut } from "../PackageShortcut/PackageShortcut";
 import styles from "./ShortcutGrid.module.scss";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useDraggableGrid } from "./useDraggableGrid";
+import { iconMap } from "../../../core/iconRegistry";
 
 export function ShortcutGrid() {
   const { handleDragEnd, containerRef, icons } = useDraggableGrid();
@@ -13,7 +14,7 @@ export function ShortcutGrid() {
           return (
             <PackageShortcut
               key={pkg.id}
-              icon={pkg.iconUrl}
+              Icon={pkg.iconName ? iconMap[pkg.iconName] : undefined}
               packageId={pkg.id}
               packageName={pkg.name}
             />

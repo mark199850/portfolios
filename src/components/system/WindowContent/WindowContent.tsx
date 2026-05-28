@@ -1,4 +1,4 @@
-import { hardDrive } from "../../../core/hardDrive";
+import { hardDrive, isValidPackage } from "../../../core/hardDrive";
 import type { IWindow } from "../../../core/interfaces/IWindow";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../core/context/OSStore";
@@ -19,7 +19,7 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
     return processData.packageId;
   });
 
-  if (!packageId) return null;
+  if (!packageId || !isValidPackage(packageId)) return null;
 
   const PackageComponent = hardDrive[packageId]?.component;
 

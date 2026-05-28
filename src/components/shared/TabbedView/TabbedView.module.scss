@@ -5,7 +5,7 @@
 .container {
   display: flex;
   height: 100%;
-  gap: 5px;
+  gap: var(--element-gap);
 }
 
 .sidePanel {
@@ -16,11 +16,11 @@
   max-width: 300px;
   min-width: 170px;
   justify-content: space-evenly;
-  overflow: scroll;
-  gap: 7px;
+  gap: var(--element-gap);
 }
 
 .tabButton {
+  color: var(--font-color);
   flex: 1;
   border: var(--border);
   border-radius: var(--border-radius);
@@ -42,7 +42,8 @@
 
   &[data-active] {
     flex: 1.5;
-    background-color: var(--active-color);
+    background-color: var(--accent-color);
+    color: var(--text-color-accent-bg);
     font-size: 1.5em;
     font-weight: bold;
   }
@@ -55,7 +56,8 @@
   margin: 0;
   border-radius: var(--border-radius);
   background-color: var(--secondary-color);
-  overflow: scroll;
+  min-width: 0;
+  min-height: 0;
 
   & > div:first-child {
     margin-left: auto;
@@ -131,7 +133,7 @@
 .thumb {
   width: 100%;
   border-radius: inherit;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 
   &:hover {
     background-color: var(--highlight-color);
