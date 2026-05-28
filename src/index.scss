@@ -30,23 +30,20 @@
   --window-border-width: 7px;
   --border-radius: 10px;
   --border: var(--border-width) solid var(--border-color);
-  --taskbar-height: 40px;
+  --taskbar-height: 60px;
+  --element-gap: 5px;
+  --slider-height: 1rem;
+  --slider-radius: calc(var(--border-radius)/4);
 
   // Color
   --theme: dark;
   --background-image: url("./assets/wallpaper/wallpaper.jpg");
-  --accent-color: #3c4b33;
-  --primary-color: color-mix(
-    in srgb,
-    var(--accent-color) 75%,
-    rgba(0, 0, 0, 0.5)
-  );
+  --accent-color: rgba(60, 75, 51, 1);
   --secondary-color: rgba(0, 0, 0, 0.3);
-  --active-color: var(--primary-color);
-  --hover-color: color-mix(in srgb, var(--primary-color) 33%, rgba(0, 0, 0, 0));
+  --hover-color: color-mix(in srgb, var(--accent-color) 33%, rgba(0, 0, 0, 0));
   --highlight-color: color-mix(
     in srgb,
-    var(--primary-color) 83%,
+    var(--accent-color) 83%,
     rgba(255, 255, 255, 1)
   );
   --text-color: rgba(255, 255, 255, 0.87);
@@ -55,12 +52,21 @@
     rgba(0, 0, 0, 1) 33%,
     var(--text-color)
   );
+  --text-color-accent-bg: rgba(255, 255, 255, 1);
+  --text-color-tertiary-bg: rgba(255, 255, 255, 1);
   --border-color: grey;
   color-scheme: var(--theme);
 
   // Misc
   --blur-amount: 30px;
   --backdrop-filter: blur(var(--blur-amount));
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 a {
@@ -100,6 +106,7 @@ button {
   background-color: var(--secondary-color);
   cursor: pointer;
   transition: background-color 0.25s;
+  color: var(--text-color);
 
   &:hover {
     background-color: var(--hover-color);

@@ -1,3 +1,6 @@
-.iconImg .placeholder {
+.iconImg,
+.placeholder {
   pointer-events: none;
+  width: 70%;
+  height: 50%;
 }

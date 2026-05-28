@@ -5,7 +5,6 @@ import { hardDrive } from "../../../core/hardDrive";
 
 const dummyPackage: IPackage = {
   id: "about",
-  iconUrl: "",
   name: "About",
   isBackgroundService: false,
   component: () => null,

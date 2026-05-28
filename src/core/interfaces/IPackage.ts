@@ -1,9 +1,10 @@
 import type { ElementType } from "react";
+import type { IconName } from "../iconRegistry";
 
 export interface IPackage {
-    id: string;
-    name: string;
-    iconUrl: string;
-    isBackgroundService: boolean;
-    component: ElementType;
+  id: string;
+  name: string;
+  iconName?: IconName;
+  isBackgroundService: boolean;
+  component: ElementType;
 }

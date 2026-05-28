@@ -1,16 +1,16 @@
 import { useSystemCtl } from "../../../hooks/useSystemCtl";
 import { useDraggable, useDroppable } from "@dnd-kit/react";
 import styles from "./PackageShortcut.module.scss";
-import React from "react";
+import React, { type ComponentType, type SVGProps } from "react";
 import { Button } from "@base-ui/react";
 type ProcessLauncherProps = {
-  icon: string;
+  Icon?: ComponentType<SVGProps<SVGSVGElement>>;
   packageId: string;
   packageName: string;
 };
 
 export const PackageShortcut = React.memo(function PackageShortcut({
-  icon,
+  Icon,
   packageId,
   packageName,
 }: ProcessLauncherProps) {
@@ -34,13 +34,7 @@ export const PackageShortcut = React.memo(function PackageShortcut({
 
   return (
     <Button ref={setNodeRef} onClick={() => startService(packageId)}>
-      <img
-        className={styles.iconImg}
-        draggable="false"
-        src={icon}
-        width={40}
-        height={40}
-      />
+      {Icon ? <Icon className={styles.iconImg}></Icon> : <></>}
       {packageName}
     </Button>
   );

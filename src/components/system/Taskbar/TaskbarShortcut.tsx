@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import type { IWindow } from "../../../core/interfaces/IWindow";
 import type { RootState } from "../../../core/context/OSStore";
-import { hardDrive } from "../../../core/hardDrive";
+import { hardDrive, isValidPackage } from "../../../core/hardDrive";
 import { useWindowManager } from "../../../hooks/useWindowManager";
 import { useCallback, memo } from "react";
 import styles from "./TaskbarShortcut.module.scss";
 import { Button } from "@base-ui/react";
+import { iconMap } from "../../../core/iconRegistry";
 
 type TaskbarShortcutProps = {
   windowId: IWindow["id"];
@@ -46,16 +47,17 @@ export const TaskbarShortcut = memo(function TaskbarShortcut({
     executeWindowAction({ type: "MINIMIZE_WINDOW", windowId });
   }, [windowId, isMinimized, isWindowFocused, executeWindowAction]);
 
-  if (!packageId) return null;
+  if (!packageId || !isValidPackage(packageId)) return null;
 
-  const icon = hardDrive[packageId]?.iconUrl;
+  const pkg = hardDrive[packageId];
 
+  const IconComponent = iconMap[pkg.iconName];
   return (
     <Button
       className={`${styles.button} ${isWindowFocused ? styles.selected : ""}`}
       onClick={handleFocusOrMinimize}
     >
-      <img className={styles.icon} src={icon} alt="" />
+      {IconComponent ? <IconComponent className={styles.icon} /> : <></>}
     </Button>
   );
 });

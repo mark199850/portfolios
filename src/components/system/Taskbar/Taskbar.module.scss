@@ -7,4 +7,5 @@
   width: 100%;
   height: var(--taskbar-height);
   z-index: 9999;
+  gap: calc(var(--element-gap) * 0.25);
 }

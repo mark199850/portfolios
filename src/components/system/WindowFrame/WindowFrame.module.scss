@@ -1,56 +1,65 @@
 :root {
-  --buttons-width: 150px;
+  --button-width: 50px;
+  --buttons-width: calc(var(--button-width) * 3);
 }
 
-$handle-size: 20px;
-$handle-offset: calc(0.8 * (#{$handle-size} * -1));
+$handle-thickness: calc(var(--window-border-width) + 20px);
+$handle-offset: calc((#{$handle-thickness} * -1 + var(--window-border-width)));
 
 // --- Resize handles - Edges ---
 .handleTop {
-  height: calc($handle-size/2) !important;
+  height: calc($handle-thickness/2) !important;
   top: calc($handle-offset/2) !important;
 }
 
 .handleBottom {
-  height: $handle-size !important;
+  height: $handle-thickness !important;
   bottom: $handle-offset !important;
 }
 
 .handleLeft {
-  width: $handle-size !important;
+  width: $handle-thickness !important;
   left: $handle-offset !important;
 }
 
 .handleRight {
-  width: $handle-size !important;
+  width: $handle-thickness !important;
   right: $handle-offset !important;
 }
 
 // --- Resize handles - Corners ---
 .handleTopLeft {
-  width: calc($handle-size/2) !important;
-  height: calc($handle-size/2) !important;
+  width: calc(
+    $handle-thickness/2 + calc(var(--border-radius) * 0.5)
+  ) !important;
+  height: calc(
+    $handle-thickness/2 + calc(var(--border-radius) * 0.5)
+  ) !important;
   top: calc($handle-offset/2) !important;
   right: calc($handle-offset/2) !important;
 }
 
 .handleTopRight {
-  width: calc($handle-size/2) !important;
-  height: calc($handle-size/2) !important;
+  width: calc(
+    $handle-thickness/2 + calc(var(--border-radius) * 0.5)
+  ) !important;
+  height: calc(
+    $handle-thickness/2 + calc(var(--border-radius) * 0.5)
+  ) !important;
   top: calc($handle-offset/2) !important;
   right: calc($handle-offset/2) !important;
 }
 
 .handleBottomLeft {
-  width: $handle-size !important;
-  height: $handle-size !important;
+  width: calc($handle-thickness + calc(var(--border-radius) * 0.5)) !important;
+  height: calc($handle-thickness + calc(var(--border-radius) * 0.5)) !important;
   bottom: $handle-offset !important;
   left: $handle-offset !important;
 }
 
 .handleBottomRight {
-  width: $handle-size !important;
-  height: $handle-size !important;
+  width: calc($handle-thickness + calc(var(--border-radius) * 0.5)) !important;
+  height: calc($handle-thickness + calc(var(--border-radius) * 0.5)) !important;
   bottom: $handle-offset !important;
   right: $handle-offset !important;
 }
@@ -73,7 +82,7 @@ $handle-offset: calc(0.8 * (#{$handle-size} * -1));
 .container {
   width: 100%;
   height: 100%;
-  background: var(--secondary-color);
+  background: var(--tertiary-color);
   border: var(--border);
   border-radius: var(--border-radius);
   position: relative;
@@ -125,6 +134,7 @@ $handle-offset: calc(0.8 * (#{$handle-size} * -1));
 }
 
 .title {
+  color: var(--text-color-tertiary-bg);
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
@@ -132,20 +142,20 @@ $handle-offset: calc(0.8 * (#{$handle-size} * -1));
 }
 
 .buttons {
-  width: var(--buttons-width);
-  padding: 0;
-  right: 0;
+  width: calc(var(--button-width) * 3);
+  padding: 0 calc(var(--border-radius) * 1 - 25px) 0 0;
   margin: 0;
   display: flex;
   justify-content: space-between;
 
   button {
+    color: var(--text-color-tertiary-bg);
     background-color: rgba(0, 0, 0, 0);
     transition: background-color 150ms linear;
-    border-radius: 0px;
+    border-radius: var(--border-radius);
     border: none;
-    width: 50px;
     padding: 0;
+    width: var(--button-width);
 
     &:hover {
       background-color: var(--btn-color);
@@ -160,7 +170,7 @@ $handle-offset: calc(0.8 * (#{$handle-size} * -1));
 
 .minimizeButton,
 .maximizeButton {
-  --btn-color: var(--hover-color);
+  --btn-color: var(--highlight-color);
 }
 
 .closeButton {
@@ -169,8 +179,7 @@ $handle-offset: calc(0.8 * (#{$handle-size} * -1));
 
 .content {
   box-sizing: border-box;
-  padding: 0 var(--window-border-width) var(--window-border-width)
-    var(--window-border-width);
+  padding: var(--window-border-width);
   margin: 0;
   overflow: hidden;
   height: calc(100% - 40px);

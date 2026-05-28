@@ -1,15 +1,15 @@
 .selected {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }
 
 .icon {
-  width: 30px;
+  width: var(--taskbar-height);
   height: 100%;
 }
 
 .button {
   padding: 5px;
-  border-radius: var(--border-radius);
+  border-radius: calc(var(--border-radius) * 0.5);
   border: none;
 
   &:hover {
