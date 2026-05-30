@@ -12,6 +12,7 @@ type ThemeSliceState = {
   elementGap: string;
   windowBorderThickness: string;
   blurAmount: string;
+  compactWidth: string;
 };
 
 const initialState: ThemeSliceState = {
@@ -23,6 +24,7 @@ const initialState: ThemeSliceState = {
   elementGap: "5px",
   windowBorderThickness: "7px",
   blurAmount: "30px",
+  compactWidth: "600px",
 };
 
 export const themeSlice = createSlice({
@@ -63,6 +65,12 @@ export const themeSlice = createSlice({
     saveBlurAmount: (state, action: PayloadAction<{ blurAmount: string }>) => {
       state.blurAmount = action.payload.blurAmount + "px";
     },
+    saveCompactWidth: (
+      state,
+      action: PayloadAction<{ compactWidth: string }>,
+    ) => {
+      state.compactWidth = action.payload.compactWidth + "px";
+    },
   },
 });
 
@@ -75,5 +83,6 @@ export const {
   saveElementGap,
   saveBorderWidth,
   saveBlurAmount,
+  saveCompactWidth,
 } = themeSlice.actions;
 export const themeSliceReducer = themeSlice.reducer;

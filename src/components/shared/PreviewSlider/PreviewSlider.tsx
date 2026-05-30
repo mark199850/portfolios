@@ -5,6 +5,7 @@ import { useState } from "react";
 type PreviewSliderProps = {
   label: string;
   value: number;
+  max?: number;
   onPreview: (value: number) => void;
   onCommit: (value: number) => void;
 };
@@ -12,6 +13,7 @@ type PreviewSliderProps = {
 export function PreviewSlider({
   label,
   value,
+  max,
   onPreview,
   onCommit,
 }: PreviewSliderProps) {
@@ -23,6 +25,7 @@ export function PreviewSlider({
       <h2>{label}</h2>
       <Slider.Root
         value={displayValue}
+        max={max ?? 100}
         onValueChange={(val) => {
           setDraftValue(val);
           onPreview(val);
