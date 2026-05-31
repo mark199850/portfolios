@@ -20,6 +20,7 @@ import {
   saveBlurAmount,
   saveBorderRadius,
   saveBorderWidth as saveBorderThickness,
+  saveCompactWidth,
   saveElementGap,
   saveSecondaryColor,
   saveTertiaryColor,
@@ -56,7 +57,8 @@ export type ThemeActionMap =
         | "SET_BORDER_RADIUS"
         | "SET_ELEMENT_GAP"
         | "SET_WINDOW_BORDER_THICKNESS"
-        | "SET_BLUR_AMOUNT";
+        | "SET_BLUR_AMOUNT"
+        | "SET_COMPACT_WIDTH";
       value: number;
     }
   | {
@@ -100,6 +102,10 @@ function useWindowManager() {
     (state: RootState) => state.theme.blurAmount,
   );
 
+  const savedCompactWidth = useSelector(
+    (state: RootState) => state.theme.compactWidth,
+  );
+
   const themeState = {
     accentColor: savedAccentColor,
     secondaryColor: savedSecondaryColor,
@@ -108,6 +114,7 @@ function useWindowManager() {
     elementGap: ExtractNumber(savedElementGap),
     windowBorderThickness: ExtractNumber(savedWindowBorderThickness),
     blurAmount: ExtractNumber(savedBlurAmount),
+    compactWidth: ExtractNumber(savedCompactWidth),
   };
   const executeWindowAction = useCallback(
     (action: WindowActionMap) => {
@@ -206,6 +213,13 @@ function useWindowManager() {
             }),
           );
           break;
+        case "SET_COMPACT_WIDTH":
+          dispatch(
+            saveCompactWidth({
+              compactWidth: action.value.toString(),
+            }),
+          );
+          break;
       }
     },
     [dispatch],
@@ -254,6 +268,9 @@ function useWindowManager() {
         break;
       case "SET_BLUR_AMOUNT":
         root.style.setProperty("--blur-amount", `${action.value}px`);
+        break;
+      case "SET_COMPACT_WIDTH":
+        root.style.setProperty("--compact-width", `${action.value}px`);
         break;
     }
   }, []);

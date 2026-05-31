@@ -31,9 +31,12 @@
   --border-radius: 10px;
   --border: var(--border-width) solid var(--border-color);
   --taskbar-height: 60px;
-  --element-gap: 5px;
   --slider-height: 1rem;
   --slider-radius: calc(var(--border-radius)/4);
+
+  //Layout
+  --compact-width: 600px;
+  --element-gap: 5px;
 
   // Color
   --theme: dark;
@@ -60,6 +63,7 @@
   // Misc
   --blur-amount: 30px;
   --backdrop-filter: blur(var(--blur-amount));
+  -webkit-tap-highlight-color: transparent;
 
   &::-webkit-scrollbar {
     display: none;

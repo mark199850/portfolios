@@ -1,38 +1,118 @@
 :root {
-  --custom-easing: 350ms cubic-bezier(0.05, 1, 0, 1);
+  --custom-easing-350ms: 350ms cubic-bezier(0.05, 1, 0, 1);
+  --custom-easing-500ms: 5000ms cubic-bezier(0.05, 1, 0, 1);
 }
 
 .container {
   display: flex;
   height: 100%;
   gap: var(--element-gap);
+
+  &.tabListLeft {
+    flex-direction: row;
+  }
+
+  &.tabListTop {
+    flex-direction: column;
+  }
 }
 
-.sidePanel {
-  padding: 0;
+.tabsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.tabList {
   display: flex;
   flex-direction: column;
   flex: 3;
   max-width: 300px;
   min-width: 170px;
-  justify-content: space-evenly;
+  padding: 0;
   gap: var(--element-gap);
+  justify-content: space-evenly;
+
+  &.compact {
+    flex: none;
+    max-width: var(--compact-width);
+  }
 }
 
 .tabButton {
-  color: var(--font-color);
+  display: flex;
   flex: 1;
+  position: relative;
+
   border: var(--border);
   border-radius: var(--border-radius);
   background-color: var(--secondary-color);
+  color: var(--font-color);
   min-height: 40px;
-  transition:
-    font-size var(--custom-easing),
-    flex-grow var(--custom-easing);
   padding: 0;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
   font-size: 1.125em;
-  will-change: flex-grow, font-size;
+  overflow: hidden;
+
+  transition:
+    font-size var(--custom-easing-350ms),
+    flex-grow var(--custom-easing-350ms),
+    min-height var(--custom-easing-500ms),
+    max-height var(--custom-easing-500ms),
+    opacity var(--custom-easing-500ms),
+    color var(--custom-easing-500ms),
+    margin-top var(--custom-easing-350ms);
+
+  will-change:
+    flex-grow, font-size, min-height, max-height, opacity, color, margin-top;
+
+  &.compact {
+    max-height: 100px;
+
+    &.collapsed {
+      &:not([data-active]) {
+        min-height: 0px;
+        max-height: 0px;
+        line-height: 0px;
+
+        margin: calc(var(--element-gap) * -0.5);
+        opacity: 1;
+        color: color-mix(
+          in srgb,
+          var(--text-color-accent-bg) 33%,
+          rgba(0, 0, 0, 0)
+        );
+      }
+    }
+  }
+
+  .tabActionButton {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 16px;
+    margin: 0;
+    border-radius: 0;
+
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--highlight-color);
+      color: var(--text-color-accent-bg);
+    }
+  }
 
   &:hover:not([data-active]) {
     border: var(--border);
@@ -50,14 +130,18 @@
 }
 
 .tabPanel {
+  background-color: var(--secondary-color);
   display: flex;
   flex: 7;
   border: var(--border);
   margin: 0;
   border-radius: var(--border-radius);
-  background-color: var(--secondary-color);
   min-width: 0;
   min-height: 0;
+
+  &.compact {
+    flex: none;
+  }
 
   & > div:first-child {
     margin-left: auto;
@@ -88,7 +172,7 @@
   flex-direction: column;
   box-sizing: border-box;
   min-height: 100%;
-  padding: 50px 10%;
+  padding: 50px 5%;
   margin: 0;
   & > * {
     margin-top: auto;
@@ -103,9 +187,11 @@
   opacity: 0;
   transition: opacity 150ms;
   pointer-events: none;
+
   &[data-scrolling] {
     transition-duration: 0ms;
   }
+
   &[data-hovering],
   &[data-scrolling] {
     opacity: 1;
