@@ -7,18 +7,21 @@ const dummyPackage: IPackage = {
   id: "about",
   name: "About",
   isBackgroundService: false,
+  isSingleton: false,
   component: () => null,
 };
 
+const foregroundPackages = Object.values(hardDrive).filter(
+  (pkg) => !pkg.isBackgroundService,
+);
+
 function useDraggableGrid() {
-  const [icons, setIcons] = useState<Array<IPackage>>(() =>
-    Object.values(hardDrive),
-  );
+  const [icons, setIcons] = useState<Array<IPackage>>(() => foregroundPackages);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const baseIcons = Object.values(hardDrive);
+    const baseIcons = foregroundPackages;
     let dummyIconsCache: IPackage[] = [];
     let frameId: number;
     const resizeObserver = new ResizeObserver((entries) => {

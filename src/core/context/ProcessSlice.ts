@@ -4,11 +4,13 @@ import type { IPackage } from "../interfaces/IPackage";
 
 type ProcessSliceState = {
   byId: Record<IProcess["pid"], IProcess>;
-  allIds: IProcess["pid"][];
+  foregroundIds: IProcess["pid"][];
+  backgroundIds: IProcess["pid"][];
 };
 const initialState: ProcessSliceState = {
   byId: {},
-  allIds: [],
+  backgroundIds: [],
+  foregroundIds: [],
 };
 export const processSlice = createSlice({
   name: "process",
@@ -29,18 +31,33 @@ export const processSlice = createSlice({
         pid,
         isBackground,
       };
-      state.allIds.push(pid);
+      if (isBackground) {
+        state.backgroundIds.push(pid);
+        return;
+      }
+      state.foregroundIds.push(pid);
     },
     killProcess: (state, action: PayloadAction<IProcess["pid"]>) => {
       const processId = action.payload;
 
       const process = state.byId[processId];
-      if (process) {
-        delete state.byId[processId];
-        state.allIds = state.allIds.filter((id) => id !== action.payload);
+      if (!process) {
+        console.warn(`process ${processId} not found`);
         return;
       }
-      console.warn(`process ${processId} not found`);
+
+      delete state.byId[processId];
+
+      if (process.isBackground) {
+        state.backgroundIds = state.backgroundIds.filter(
+          (id) => id !== action.payload,
+        );
+        return;
+      }
+
+      state.foregroundIds = state.foregroundIds.filter(
+        (id) => id !== action.payload,
+      );
     },
   },
 });
