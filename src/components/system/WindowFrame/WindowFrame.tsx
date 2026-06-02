@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../core/context/OSStore.ts";
 import { useWindowManager } from "../../../hooks/useWindowManager.ts";
 import { Button } from "@base-ui/react";
+import { useSystemCtl } from "../../../hooks/useSystemCtl.ts";
 
 type WindowFrameProps = {
   id: IWindow["id"];
@@ -17,6 +18,7 @@ export const WindowFrame = memo(function WindowFrame({
   id,
 }: WindowFrameProps) {
   const { executeWindowAction } = useWindowManager();
+  const { stopService } = useSystemCtl();
 
   const windowData = useSelector((state: RootState) => state.window.byId[id]);
 
@@ -60,7 +62,7 @@ export const WindowFrame = memo(function WindowFrame({
   };
 
   const handleCloseWindow = () => {
-    executeWindowAction({ type: "CLOSE_WINDOW", windowId: windowData.id });
+    stopService(windowData.pid, windowData.id);
   };
 
   if (!windowData || windowData.isMinimized) return null;

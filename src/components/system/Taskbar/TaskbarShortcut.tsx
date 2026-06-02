@@ -21,7 +21,7 @@ export const TaskbarShortcut = memo(function TaskbarShortcut({
     (state: RootState) => state.window.byId[windowId]?.isMinimized,
   );
   const processId = useSelector(
-    (state: RootState) => state.window.byId[windowId]?.processId,
+    (state: RootState) => state.window.byId[windowId]?.pid,
   );
 
   const packageId = useSelector((state: RootState) =>
@@ -51,7 +51,9 @@ export const TaskbarShortcut = memo(function TaskbarShortcut({
 
   const pkg = hardDrive[packageId];
 
-  const IconComponent = iconMap[pkg.iconName];
+  const IconComponent =
+    "iconName" in pkg && pkg.iconName ? iconMap[pkg.iconName] : undefined;
+
   return (
     <Button
       className={`${styles.button} ${isWindowFocused ? styles.selected : ""}`}
