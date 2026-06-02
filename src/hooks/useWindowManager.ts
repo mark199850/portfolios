@@ -31,7 +31,7 @@ import type { RgbaColor } from "react-colorful";
 type WindowActionMap =
   | {
       type: "ADD_WINDOW";
-      processId: IProcess["id"];
+      processId: IProcess["pid"];
       title: IPackage["name"];
       iconName: IPackage["iconName"];
     }
@@ -124,7 +124,7 @@ function useWindowManager() {
           dispatch(
             addWindow({
               title,
-              processId,
+              pid: processId,
               id: crypto.randomUUID(),
               position: { x: 100, y: 10 },
               zIndex: 0,

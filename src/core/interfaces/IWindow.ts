@@ -3,7 +3,7 @@ import type { IProcess } from "./IProcess";
 
 export interface IWindow {
   id: string;
-  processId: IProcess["id"];
+  pid: IProcess["pid"];
   title: IPackage["name"];
   iconName: IPackage["iconName"];
   position: { x: number; y: number };

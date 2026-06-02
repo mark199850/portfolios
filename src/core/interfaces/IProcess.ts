@@ -1,5 +1,7 @@
+import type { ProcessId } from "../utils/pid";
+
 export interface IProcess {
-    id: string;
-    packageId: string;
-    isBackground: boolean;
+  pid: ProcessId;
+  packageId: string;
+  isBackground: boolean;
 }

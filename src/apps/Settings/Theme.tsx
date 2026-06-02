@@ -103,24 +103,24 @@ export function Theme() {
             ></PreviewSlider>
           </li>
         </ul>
-        <li className={styles.section}>
-          <h1 className={styles.sectionLabel}>Layout</h1>
-          <ul className={styles.verticalSectionList}>
-            <li className={styles.section}>
-              <PreviewSlider
-                label="Compact tab threshold"
-                max={1000}
-                value={themeState.compactWidth}
-                onPreview={(value) => {
-                  previewTheme({ type: "SET_COMPACT_WIDTH", value });
-                }}
-                onCommit={(value) => {
-                  executeThemeAction({ type: "SET_COMPACT_WIDTH", value });
-                }}
-              ></PreviewSlider>
-            </li>
-          </ul>
-        </li>
+      </li>
+      <li className={styles.section}>
+        <h1 className={styles.sectionLabel}>Layout</h1>
+        <ul className={styles.verticalSectionList}>
+          <li className={styles.section}>
+            <PreviewSlider
+              label="Compact tab threshold"
+              max={1000}
+              value={themeState.compactWidth}
+              onPreview={(value) => {
+                previewTheme({ type: "SET_COMPACT_WIDTH", value });
+              }}
+              onCommit={(value) => {
+                executeThemeAction({ type: "SET_COMPACT_WIDTH", value });
+              }}
+            ></PreviewSlider>
+          </li>
+        </ul>
       </li>
     </ul>
   );

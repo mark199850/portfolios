@@ -13,7 +13,7 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
     const windowData = state.window.byId[windowId];
     if (!windowData) return null;
 
-    const processData = state.process.byId[windowData.processId];
+    const processData = state.process.byId[windowData.pid];
     if (!processData) return null;
 
     return processData.packageId;
@@ -21,7 +21,16 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
 
   if (!packageId || !isValidPackage(packageId)) return null;
 
-  const PackageComponent = hardDrive[packageId]?.component;
+  const pkg = hardDrive[packageId];
+
+  if (pkg.isBackgroundService) {
+    console.warn(
+      `Attempted to render background service '${packageId}' in a window.`,
+    );
+    return null;
+  }
+
+  const PackageComponent = pkg.component;
 
   return (
     <div className={styles.container}>
