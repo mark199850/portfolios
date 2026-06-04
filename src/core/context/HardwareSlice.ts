@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type ProcessSliceState = {
+type HardwareSliceState = {
   time: number;
 };
-const initialState: ProcessSliceState = {
+const initialState: HardwareSliceState = {
   time: Date.now(),
 };
-export const systemSlice = createSlice({
+export const hardwareSlice = createSlice({
   name: "process",
   initialState,
   reducers: {
@@ -16,6 +16,6 @@ export const systemSlice = createSlice({
   },
 });
 
-export const { setTime } = systemSlice.actions;
+export const { setTime } = hardwareSlice.actions;
 
-export const systemSliceReducer = systemSlice.reducer;
+export const hardwareSliceReducer = hardwareSlice.reducer;

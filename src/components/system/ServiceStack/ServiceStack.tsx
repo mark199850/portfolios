@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../../core/context/OSStore";
 import { ServiceSpawner } from "./ServiceSpawner";
 
-export function ServiceManager() {
+export function ServiceStack() {
   const backgroundProcesses = useSelector(
     (state: RootState) => state.process.backgroundIds,
   );
