@@ -2,7 +2,7 @@ import { DesktopCanvas } from "../DesktopCanvas/DesktopCanvas";
 import styles from "./DesktopEnvironment.module.scss";
 import { useEffect } from "react";
 import { useSystemCtl } from "../../../hooks/useSystemCtl";
-import { ServiceManager } from "../ServiceManager/ServiceManager";
+import { ServiceStack } from "../ServiceStack/ServiceStack";
 
 export function DesktopEnvironment() {
   const { startService } = useSystemCtl();
@@ -14,7 +14,7 @@ export function DesktopEnvironment() {
   return (
     <div className={styles.container}>
       <DesktopCanvas />
-      <ServiceManager />
+      <ServiceStack />
     </div>
   );
 }

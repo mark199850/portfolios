@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../core/context/OSStore";
 import { useEffect } from "react";
-import { setTime } from "../../core/context/SystemSlice";
+import { setTime } from "../../core/context/HardwareSlice";
 
 export function Clockd() {
   const dispatch = useDispatch<AppDispatch>();
