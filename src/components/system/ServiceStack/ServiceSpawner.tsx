@@ -2,12 +2,15 @@ import { useSelector } from "react-redux";
 import { hardDrive, isValidPackage } from "../../../core/hardDrive";
 import type { IProcess } from "../../../core/interfaces/IProcess";
 import type { RootState } from "../../../core/context/OSStore";
+import { memo } from "react";
 
 type ServiceSpawnerProps = {
   pid: IProcess["pid"];
 };
 
-export function ServiceSpawner({ pid }: ServiceSpawnerProps) {
+export const ServiceSpawner = memo(function ServiceSpawner({
+  pid,
+}: ServiceSpawnerProps) {
   const process = useSelector((state: RootState) => state.process.byId[pid]);
 
   if (!process || !isValidPackage(process?.packageId)) return null;
@@ -15,6 +18,5 @@ export function ServiceSpawner({ pid }: ServiceSpawnerProps) {
 
   const Component = hardDrive[process.packageId].component;
 
-  console.log("spawned: " + process.packageId);
   return <Component />;
-}
+});

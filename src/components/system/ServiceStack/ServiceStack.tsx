@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../core/context/OSStore";
 import { ServiceSpawner } from "./ServiceSpawner";
+import { memo } from "react";
 
-export function ServiceStack() {
+export const ServiceStack = memo(function ServiceStack() {
   const backgroundProcesses = useSelector(
     (state: RootState) => state.process.backgroundIds,
   );
-  console.log("manager sees the following processes: " + backgroundProcesses);
+
   return (
     <>
       {backgroundProcesses.map((pid) => {
@@ -14,4 +15,4 @@ export function ServiceStack() {
       })}
     </>
   );
-}
+});
