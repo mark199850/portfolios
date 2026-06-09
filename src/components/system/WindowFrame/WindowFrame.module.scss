@@ -66,9 +66,9 @@ $handle-offset: calc((#{$handle-thickness} * -1 + var(--window-border-width)));
 
 .rnd {
   transition:
-    transform var(--duration) var(--slowing),
-    width var(--duration) var(--slowing),
-    height var(--duration) var(--slowing);
+    transform var(--500ms) var(--slowing-slow-start),
+    width var(--500ms) var(--slowing-slow-start),
+    height var(--500ms) var(--slowing-slow-start);
   pointer-events: auto;
   margin: 10px;
   max-width: 100% !important;
@@ -91,9 +91,9 @@ $handle-offset: calc((#{$handle-thickness} * -1 + var(--window-border-width)));
   user-select: none;
   backdrop-filter: var(--backdrop-filter);
   overflow: hidden;
-  box-shadow: 1px 5px 16px -6px rgba(0, 0, 0, 1);
-  -webkit-box-shadow: 1px 5px 16px -6px rgba(0, 0, 0, 1);
-  -moz-box-shadow: 1px 5px 16px -6px rgba(0, 0, 0, 1);
+  box-shadow: var(--box-shadow);
+  -webkit-box-shadow: var(--box-shadow);
+  -moz-box-shadow: var(--box-shadow);
 }
 
 .maximized {

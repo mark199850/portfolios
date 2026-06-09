@@ -1,0 +1,17 @@
+.container {
+  padding: 10px;
+}
+
+.dayPicker {
+  --rdp-accent-color: var(--accent-color);
+}
+
+.clock {
+  color: var(--accent-color);
+  font-weight: bold;
+  text-indent: -0.1em;
+  font-variant-numeric: propotional-nums;
+  font-size: 32px;
+  line-height: 32px;
+  text-align: center;
+}

@@ -7,7 +7,7 @@ const initialState: HardwareSliceState = {
   time: Date.now(),
 };
 export const hardwareSlice = createSlice({
-  name: "process",
+  name: "hardware",
   initialState,
   reducers: {
     setTime: (state, action: PayloadAction<{ time: number }>) => {
