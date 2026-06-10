@@ -3,13 +3,15 @@ import { processSliceReducer } from "./ProcessSlice.ts";
 import { windowSliceReducer } from "./WindowSlice.ts";
 import { themeSliceReducer } from "./ThemeSlice.ts";
 import { hardwareSliceReducer } from "./HardwareSlice.ts";
+import { widgetSliceReducer } from "./WidgetSlice.ts";
 
 export const store = configureStore({
   reducer: {
     window: windowSliceReducer,
     process: processSliceReducer,
     theme: themeSliceReducer,
-    system: hardwareSliceReducer,
+    hardware: hardwareSliceReducer,
+    widget: widgetSliceReducer,
   },
 });
 

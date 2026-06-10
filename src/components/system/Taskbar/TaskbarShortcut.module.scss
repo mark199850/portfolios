@@ -1,6 +1,4 @@
-.selected {
-  background-color: var(--accent-color);
-}
+@use "../../../mixins" as *;
 
 .icon {
   width: var(--taskbar-height);
@@ -8,13 +6,11 @@
 }
 
 .button {
+  @include button-base;
   padding: 5px;
   border-radius: calc(var(--border-radius) * 0.5);
-  border: none;
 
-  &:hover {
-    border: none;
-    background: none;
-    background-color: var(--hover-color);
+  &.selected {
+    background-color: var(--accent-color);
   }
 }
