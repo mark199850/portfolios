@@ -23,7 +23,7 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
 
   const pkg = hardDrive[packageId];
 
-  if (pkg.isBackgroundService) {
+  if (pkg.isBackground) {
     console.warn(
       `Attempted to render background service '${packageId}' in a window.`,
     );

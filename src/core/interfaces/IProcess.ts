@@ -4,4 +4,5 @@ export interface IProcess {
   pid: ProcessId;
   packageId: string;
   isBackground: boolean;
+  startTimestamp: number;
 }

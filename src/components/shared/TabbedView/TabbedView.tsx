@@ -1,24 +1,28 @@
-import { ScrollArea, Tabs } from "@base-ui/react";
+import { Tabs } from "@base-ui/react";
 import styles from "./TabbedView.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useWindowManager } from "../../../hooks/useWindowManager";
+import { ScrollableArea } from "../ScrollableArea/ScrollableArea";
 
-export type AppTabs = Record<string, React.ElementType>;
+export type AppTabs = Record<string, ReactNode>;
 
 type TabbedViewProps<T extends AppTabs> = {
   tabs: T;
-  defaultTab: keyof T;
+  defaultTab: Extract<keyof T, string>;
+  customTabPanelStyle?: boolean;
 };
 
 export function TabbedView<T extends AppTabs>({
   tabs,
   defaultTab,
+  customTabPanelStyle = false,
 }: TabbedViewProps<T>) {
   const { themeState } = useWindowManager();
 
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [isWindowSmall, setIsWindowSmall] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<keyof T>(defaultTab);
+  const [activeTab, setActiveTab] =
+    useState<Extract<keyof T, string>>(defaultTab);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,7 +51,7 @@ export function TabbedView<T extends AppTabs>({
       ref={containerRef}
       defaultValue={defaultTab}
       onValueChange={(val) => {
-        setActiveTab(val as keyof T);
+        setActiveTab(val as Extract<keyof T, string>);
         setIsCollapsed(true);
       }}
       className={`${styles.container} ${isWindowSmall ? styles.tabListTop : styles.tabListLeft}`}
@@ -80,28 +84,13 @@ export function TabbedView<T extends AppTabs>({
         })}
         <Tabs.Indicator className={styles.indicator} />
       </Tabs.List>
-      {Object.entries(tabs).map(([tabName, Component]) => (
-        <Tabs.Panel key={tabName} value={tabName} className={styles.tabPanel}>
-          <ScrollArea.Root className={styles.contentScrollArea}>
-            <ScrollArea.Viewport className={styles.contentViewport}>
-              <ScrollArea.Content className={styles.content}>
-                <Component />
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar
-              className={styles.scrollbar}
-              orientation="vertical"
-            >
-              <ScrollArea.Thumb className={styles.thumb} />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Scrollbar
-              className={styles.scrollbar}
-              orientation="horizontal"
-            >
-              <ScrollArea.Thumb className={styles.thumb} />
-            </ScrollArea.Scrollbar>
-            <ScrollArea.Corner />
-          </ScrollArea.Root>
+      {Object.entries(tabs).map(([tabName, content]) => (
+        <Tabs.Panel
+          key={tabName}
+          value={tabName}
+          className={`${styles.tabPanel} ${customTabPanelStyle ? styles.transparent : ""}`}
+        >
+          <ScrollableArea>{content}</ScrollableArea>
         </Tabs.Panel>
       ))}
     </Tabs.Root>

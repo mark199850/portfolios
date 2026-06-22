@@ -1,0 +1,72 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--element-gap);
+
+  & button {
+    &:hover {
+      background-color: var(--highlight-color);
+    }
+    &:active {
+      transition: none;
+      background-color: color-mix(in srgb, var(--highlight-color) 75%, black);
+    }
+  }
+}
+.expandButton {
+  margin: 0 10px;
+  padding: 0;
+  background-color: transparent !important;
+
+  &:hover {
+    background-color: transparent !important;
+    color: var(--accent-color);
+  }
+}
+
+.expandableCell {
+  text-align: left;
+}
+
+.expansionCell {
+  text-align: left;
+  padding: 10px 10px 10px 0;
+
+  &::before {
+    padding: 0 15px 0 0;
+    content: "—";
+  }
+  border-left: 1px solid;
+  border-image: linear-gradient(
+      to bottom,
+      var(--text-color) 100%,
+      transparent 0%
+    )
+    1 100%;
+  margin: 0 0 0 50px;
+}
+
+tr:has(div.expansionCell) {
+  & td {
+    padding: 0;
+  }
+
+  &:not(:has(+ tr td div.expansionCell)) .expansionCell {
+    border-left: 1px solid;
+    border-image: linear-gradient(
+        to bottom,
+        var(--text-color) 55%,
+        transparent 45%
+      )
+      1 100%;
+  }
+}

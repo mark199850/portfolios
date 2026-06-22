@@ -1,0 +1,43 @@
+.tableWrapper {
+  background-color: var(--secondary-color);
+  height: calc(100% - 50px);
+  width: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.table {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  & td:not(:last-child),
+  th:not(:last-child) {
+    border-right: 1px solid var(--accent-color);
+  }
+
+  & th {
+    cursor: pointer;
+    top: 0;
+    background-color: var(--accent-color);
+    position: sticky;
+  }
+
+  & tbody {
+    & tr {
+      &:hover:not(.selected) {
+        background-color: var(--hover-color);
+      }
+
+      & td {
+        white-space: nowrap;
+        padding: 10px;
+      }
+    }
+  }
+}
+
+.selected {
+  background-color: var(--selection-color);
+  color: var(--text-color-accent-bg);
+}

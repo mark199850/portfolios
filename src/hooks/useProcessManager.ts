@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../core/context/OSStore";
+import { useDispatch, useStore } from "react-redux";
+import type { AppDispatch, RootState } from "../core/context/OSStore";
 import { useCallback } from "react";
 import { killProcess, spawnProcess } from "../core/context/ProcessSlice";
 import type { IPackage } from "../core/interfaces/IPackage";
@@ -16,6 +16,7 @@ type ProcessActionMap =
 
 function useProcessManager() {
   const dispatch = useDispatch<AppDispatch>();
+  const store = useStore<RootState>();
 
   const executeProcessAction = useCallback(
     (action: ProcessActionMap) => {
@@ -27,6 +28,7 @@ function useProcessManager() {
               packageId: action.packageId,
               pid,
               isBackground: action.isBackground,
+              startTimestamp: store.getState().hardware.time,
             }),
           );
           return pid;
@@ -37,7 +39,7 @@ function useProcessManager() {
         }
       }
     },
-    [dispatch],
+    [dispatch, store],
   );
 
   return { executeProcessAction };

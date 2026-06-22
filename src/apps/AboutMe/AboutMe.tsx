@@ -8,10 +8,10 @@ import {
 } from "../../components/shared/TabbedView/TabbedView";
 
 const tabs = {
-  Profile: Profile,
-  Experience: Experience,
-  Education: Education,
-  Projects: Projects,
+  Profile: <Profile />,
+  Experience: <Experience />,
+  Education: <Education />,
+  Projects: <Projects />,
 } satisfies AppTabs;
 
 function AboutMe() {
