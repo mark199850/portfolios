@@ -52,7 +52,7 @@ export function useSystemCtl() {
       const foundProcess = findProcess(targetPackage.id);
 
       if (targetPackage.isSingleton && foundProcess) {
-        if (targetPackage.isBackgroundService) return;
+        if (targetPackage.isBackground) return;
         const windowId = findWindow(foundProcess);
 
         if (!windowId) {
@@ -73,12 +73,12 @@ export function useSystemCtl() {
       const spawnedProcessId = executeProcessAction({
         type: "SPAWN_PROCESS",
         packageId,
-        isBackground: targetPackage.isBackgroundService,
+        isBackground: targetPackage.isBackground,
       });
 
       if (!spawnedProcessId) return;
 
-      if (!targetPackage.isBackgroundService) {
+      if (!targetPackage.isBackground) {
         executeWindowAction({
           type: "ADD_WINDOW",
           processId: spawnedProcessId,

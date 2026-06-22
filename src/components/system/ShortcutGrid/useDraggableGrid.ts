@@ -6,13 +6,14 @@ import { hardDrive } from "../../../core/hardDrive";
 const dummyPackage: IPackage = {
   id: "about",
   name: "About",
-  isBackgroundService: false,
+  isBackground: false,
+  isService: true,
   isSingleton: false,
   component: () => null,
 };
 
 const foregroundPackages = Object.values(hardDrive).filter(
-  (pkg) => !pkg.isBackgroundService,
+  (pkg) => !pkg.isBackground,
 );
 
 function useDraggableGrid() {

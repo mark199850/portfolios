@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IProcess } from "../interfaces/IProcess";
-import type { IPackage } from "../interfaces/IPackage";
 
 type ProcessSliceState = {
   byId: Record<IProcess["pid"], IProcess>;
@@ -16,20 +15,14 @@ export const processSlice = createSlice({
   name: "process",
   initialState,
   reducers: {
-    spawnProcess: (
-      state,
-      action: PayloadAction<{
-        packageId: IPackage["id"];
-        pid: IProcess["pid"];
-        isBackground: IProcess["isBackground"];
-      }>,
-    ) => {
-      const { packageId, pid, isBackground } = action.payload;
+    spawnProcess: (state, action: PayloadAction<IProcess>) => {
+      const { packageId, pid, isBackground, startTimestamp } = action.payload;
 
       state.byId[pid] = {
         packageId,
         pid,
         isBackground,
+        startTimestamp,
       };
       if (isBackground) {
         state.backgroundIds.push(pid);

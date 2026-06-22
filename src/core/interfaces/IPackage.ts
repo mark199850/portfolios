@@ -5,7 +5,8 @@ export interface IPackage {
   id: string;
   name: string;
   iconName?: IconName;
-  isBackgroundService: boolean;
+  isBackground: boolean;
+  isService: boolean;
   isSingleton: boolean;
   component: ElementType;
   daemons?: string[];

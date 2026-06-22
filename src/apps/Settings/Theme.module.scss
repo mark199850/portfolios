@@ -1,3 +1,12 @@
+.container {
+  padding: var(--content-padding);
+
+  & > :first-child {
+    padding: 0;
+    margin: 0;
+  }
+}
+
 .sliderControl {
   box-sizing: border-box;
   display: flex;
