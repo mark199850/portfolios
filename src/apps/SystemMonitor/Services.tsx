@@ -66,6 +66,7 @@ export const Services = memo(function Services({
   const table = useReactTable({
     data: services,
     columns: COLUMNS,
+    getRowId: (row) => String(row.id),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     initialState: {

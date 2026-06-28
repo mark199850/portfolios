@@ -55,6 +55,7 @@ export function Processes({ processes }: ProcessesProps) {
   const table = useReactTable({
     data,
     columns: COLUMNS,
+    getRowId: (row) => String(row.pid),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     initialState: {

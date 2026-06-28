@@ -96,9 +96,13 @@ export function RunningApps({ processes }: RunningAppsProps) {
   });
 
   const handleKillProcess = () => {
-    table
+    const validRows = table
       .getSelectedRowModel()
-      .flatRows.forEach((row) => stopService(row.original.pid));
+      .flatRows.filter((row) => !row.getIsGrouped() && row.original.pid);
+
+    validRows.forEach((row) => {
+      stopService(row.original.pid);
+    });
   };
 
   return (

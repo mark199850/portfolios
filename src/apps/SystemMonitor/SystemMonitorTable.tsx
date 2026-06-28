@@ -1,6 +1,7 @@
 import { flexRender, type RowData, type Table } from "@tanstack/react-table";
 import { ScrollableArea } from "../../components/shared/ScrollableArea/ScrollableArea";
 import styles from "./SystemMonitorTable.module.scss";
+import { Button } from "@base-ui/react";
 
 type TableProperties<T extends RowData> = {
   table: Table<T>;
@@ -17,22 +18,23 @@ export function SystemMonitorTable<T extends RowData>({
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
+                  <th key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
                           header.getContext(),
                         )}
-                    <div>
+                    <br />
+                    <Button
+                      className={styles.sortButton}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
                       {{
                         asc: "▲",
                         desc: "▼",
                       }[header.column.getIsSorted() as string] ?? "▼▲"}
-                    </div>
+                    </Button>
                   </th>
                 ))}
               </tr>

@@ -17,7 +17,6 @@
   }
 
   & th {
-    cursor: pointer;
     top: 0;
     background-color: var(--accent-color);
     position: sticky;
@@ -40,4 +39,15 @@
 .selected {
   background-color: var(--selection-color);
   color: var(--text-color-accent-bg);
+}
+
+.sortButton {
+  margin: 0;
+  padding: 5px 10px;
+  min-width: 3em;
+  background-color: transparent !important;
+
+  &:hover {
+    background-color: var(--highlight-color) !important;
+  }
 }
