@@ -31,9 +31,7 @@ const COLUMNS = [
               e.stopPropagation();
             }}
             className={styles.expandButton}
-            style={{
-              cursor: row.getCanExpand() ? "pointer" : "normal",
-            }}
+            style={{ cursor: "pointer" }}
           >
             {row.getIsExpanded() ? "▼" : "►"} {row.subRows.length}
           </button>

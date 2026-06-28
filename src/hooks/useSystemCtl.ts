@@ -4,7 +4,6 @@ import { useProcessManager } from "./useProcessManager";
 import type { IProcess } from "../core/interfaces/IProcess";
 import { useWindowManager } from "./useWindowManager";
 import { useCallback } from "react";
-import type { IWindow } from "../core/interfaces/IWindow";
 import { useStore } from "react-redux";
 import type { RootState } from "../core/context/OSStore";
 
@@ -92,11 +91,12 @@ export function useSystemCtl() {
   );
 
   const stopService = useCallback(
-    (pid: IProcess["pid"], windowId?: IWindow["id"]) => {
+    (pid: IProcess["pid"]) => {
+      const windowId = findWindow(pid);
       if (windowId) executeWindowAction({ type: "CLOSE_WINDOW", windowId });
       executeProcessAction({ type: "KILL_PROCESS", pid });
     },
-    [executeProcessAction, executeWindowAction],
+    [executeProcessAction, executeWindowAction, findWindow],
   );
 
   return {
