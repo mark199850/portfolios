@@ -26,9 +26,11 @@ const COLUMNS = [
   columnHelper.accessor((row) => row.isBackground, {
     id: "Background",
     header: "Background",
-    cell: (e) => {
+    cell: (cellContext) => {
       return (
-        <span>{e.row.original.isBackground ? "Background" : "Foreground"}</span>
+        <span>
+          {cellContext.row.original.isBackground ? "Background" : "Foreground"}
+        </span>
       );
     },
   }),
@@ -36,7 +38,9 @@ const COLUMNS = [
     id: "Uptime",
     header: "Uptime",
     invertSorting: true,
-    cell: (e) => <UptimeCell startTimestamp={e.row.original.startTimestamp} />,
+    cell: (cellContext) => (
+      <UptimeCell startTimestamp={cellContext.row.original.startTimestamp} />
+    ),
   }),
 ];
 

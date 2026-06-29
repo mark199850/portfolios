@@ -25,7 +25,7 @@ const COLUMNS = [
     cell: ({ cell, row }) => {
       return cell.getIsGrouped() ? (
         <div className={styles.expandableCell}>
-          <button
+          <Button
             onClick={(e) => {
               row.toggleExpanded();
               e.stopPropagation();
@@ -34,7 +34,7 @@ const COLUMNS = [
             style={{ cursor: "pointer" }}
           >
             {row.getIsExpanded() ? "▼" : "►"} {row.subRows.length}
-          </button>
+          </Button>
           <span>{cell.getValue()}</span>
         </div>
       ) : (
@@ -48,7 +48,9 @@ const COLUMNS = [
     id: "Uptime",
     header: "Uptime",
     invertSorting: true,
-    cell: (e) => <UptimeCell startTimestamp={e.row.original.startTimestamp} />,
+    cell: (cellContext) => (
+      <UptimeCell startTimestamp={cellContext.row.original.startTimestamp} />
+    ),
   }),
 ];
 
