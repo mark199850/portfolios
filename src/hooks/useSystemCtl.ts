@@ -15,10 +15,10 @@ export function useSystemCtl() {
   const findWindow = useCallback(
     (pid: IProcess["pid"]) => {
       const state = store.getState();
-      const foundWindow = Object.values(state.window.byId).filter(
+      const foundWindows = Object.values(state.window.byId).filter(
         (window) => window.pid === pid,
       );
-      return foundWindow[0]?.id ?? null;
+      return foundWindows.map((window) => window.id) ?? null;
     },
     [store],
   );
@@ -52,19 +52,21 @@ export function useSystemCtl() {
 
       if (targetPackage.isSingleton && foundProcess) {
         if (targetPackage.isBackground) return;
-        const windowId = findWindow(foundProcess);
+        const windowIds = findWindow(foundProcess);
 
-        if (!windowId) {
+        if (!windowIds) {
           console.warn(`${targetPackage.id} is running but window not found`);
           return;
         }
-        executeWindowAction({
-          type: "BRING_WINDOW_TO_TOP",
-          windowId,
-        });
-        executeWindowAction({
-          type: "UNMINIMIZE_WINDOW",
-          windowId,
+        windowIds.forEach((windowId) => {
+          executeWindowAction({
+            type: "BRING_WINDOW_TO_TOP",
+            windowId,
+          });
+          executeWindowAction({
+            type: "UNMINIMIZE_WINDOW",
+            windowId,
+          });
         });
         return;
       }
@@ -97,8 +99,12 @@ export function useSystemCtl() {
         return;
       }
 
-      const windowId = findWindow(pid);
-      if (windowId) executeWindowAction({ type: "CLOSE_WINDOW", windowId });
+      const windowIds = findWindow(pid);
+      if (windowIds) {
+        windowIds.forEach((windowId) => {
+          executeWindowAction({ type: "CLOSE_WINDOW", windowId });
+        });
+      }
 
       executeProcessAction({ type: "KILL_PROCESS", pid });
     },
