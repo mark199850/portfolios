@@ -92,13 +92,12 @@ export function useSystemCtl() {
 
   const stopService = useCallback(
     (pid: IProcess["pid"]) => {
-      const windowId = findWindow(pid);
-
       if (!store.getState().process.byId[pid]) {
         console.error(`Attempted to kill non-existent process: ${pid}`);
         return;
       }
 
+      const windowId = findWindow(pid);
       if (windowId) executeWindowAction({ type: "CLOSE_WINDOW", windowId });
 
       executeProcessAction({ type: "KILL_PROCESS", pid });
