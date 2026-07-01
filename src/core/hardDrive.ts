@@ -3,6 +3,11 @@ import type { IPackage } from "./interfaces/IPackage";
 import { Settings } from "../apps/Settings/Settings";
 import { Clockd } from "../services/Clockd/Clockd";
 import { SystemMonitor } from "../apps/SystemMonitor/SystemMonitor";
+//TODO: src/core/hardDrive.ts imports SystemMonitor, and src/apps/SystemMonitor/SystemMonitor.tsx imports hardDrive
+//to derive servicesArray, creating a module cycle.
+//Move the shared package metadata into a dependency-free module so both sides can import from it.
+//
+//TODO: Make services strictly singleton-only
 
 export const hardDrive = {
   about: {

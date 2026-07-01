@@ -73,9 +73,9 @@ export function Processes({ processes }: ProcessesProps) {
   });
 
   const handleKillProcess = () => {
-    table
-      .getSelectedRowModel()
-      .flatRows.forEach((row) => stopService(row.original.pid));
+    table.getSelectedRowModel().flatRows.forEach((row) => {
+      stopService(row.original.pid);
+    });
   };
 
   return (

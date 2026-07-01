@@ -18,7 +18,10 @@ export function useSystemCtl() {
       const foundWindows = Object.values(state.window.byId).filter(
         (window) => window.pid === pid,
       );
-      return foundWindows.map((window) => window.id) ?? null;
+
+      return foundWindows.length > 0
+        ? foundWindows.map((window) => window.id)
+        : null;
     },
     [store],
   );
