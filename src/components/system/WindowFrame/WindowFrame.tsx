@@ -62,7 +62,7 @@ export const WindowFrame = memo(function WindowFrame({
   };
 
   const handleCloseWindow = () => {
-    stopService(windowData.pid, windowData.id);
+    stopService(windowData.pid);
   };
 
   if (!windowData || windowData.isMinimized) return null;

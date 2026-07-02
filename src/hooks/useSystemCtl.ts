@@ -4,7 +4,6 @@ import { useProcessManager } from "./useProcessManager";
 import type { IProcess } from "../core/interfaces/IProcess";
 import { useWindowManager } from "./useWindowManager";
 import { useCallback } from "react";
-import type { IWindow } from "../core/interfaces/IWindow";
 import { useStore } from "react-redux";
 import type { RootState } from "../core/context/OSStore";
 
@@ -16,10 +15,13 @@ export function useSystemCtl() {
   const findWindow = useCallback(
     (pid: IProcess["pid"]) => {
       const state = store.getState();
-      const foundWindow = Object.values(state.window.byId).filter(
+      const foundWindows = Object.values(state.window.byId).filter(
         (window) => window.pid === pid,
       );
-      return foundWindow[0]?.id ?? null;
+
+      return foundWindows.length > 0
+        ? foundWindows.map((window) => window.id)
+        : null;
     },
     [store],
   );
@@ -52,20 +54,22 @@ export function useSystemCtl() {
       const foundProcess = findProcess(targetPackage.id);
 
       if (targetPackage.isSingleton && foundProcess) {
-        if (targetPackage.isBackgroundService) return;
-        const windowId = findWindow(foundProcess);
+        if (targetPackage.isBackground) return;
+        const windowIds = findWindow(foundProcess);
 
-        if (!windowId) {
+        if (!windowIds) {
           console.warn(`${targetPackage.id} is running but window not found`);
           return;
         }
-        executeWindowAction({
-          type: "BRING_WINDOW_TO_TOP",
-          windowId,
-        });
-        executeWindowAction({
-          type: "UNMINIMIZE_WINDOW",
-          windowId,
+        windowIds.forEach((windowId) => {
+          executeWindowAction({
+            type: "BRING_WINDOW_TO_TOP",
+            windowId,
+          });
+          executeWindowAction({
+            type: "UNMINIMIZE_WINDOW",
+            windowId,
+          });
         });
         return;
       }
@@ -73,12 +77,12 @@ export function useSystemCtl() {
       const spawnedProcessId = executeProcessAction({
         type: "SPAWN_PROCESS",
         packageId,
-        isBackground: targetPackage.isBackgroundService,
+        isBackground: targetPackage.isBackground,
       });
 
       if (!spawnedProcessId) return;
 
-      if (!targetPackage.isBackgroundService) {
+      if (!targetPackage.isBackground) {
         executeWindowAction({
           type: "ADD_WINDOW",
           processId: spawnedProcessId,
@@ -92,11 +96,22 @@ export function useSystemCtl() {
   );
 
   const stopService = useCallback(
-    (pid: IProcess["pid"], windowId?: IWindow["id"]) => {
-      if (windowId) executeWindowAction({ type: "CLOSE_WINDOW", windowId });
+    (pid: IProcess["pid"]) => {
+      if (!store.getState().process.byId[pid]) {
+        console.error(`Attempted to kill non-existent process: ${pid}`);
+        return;
+      }
+
+      const windowIds = findWindow(pid);
+      if (windowIds) {
+        windowIds.forEach((windowId) => {
+          executeWindowAction({ type: "CLOSE_WINDOW", windowId });
+        });
+      }
+
       executeProcessAction({ type: "KILL_PROCESS", pid });
     },
-    [executeProcessAction, executeWindowAction],
+    [executeProcessAction, executeWindowAction, findWindow, store],
   );
 
   return {

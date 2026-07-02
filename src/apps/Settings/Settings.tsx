@@ -5,7 +5,7 @@ import {
 import { Theme } from "./Theme";
 
 const tabs = {
-  Theme: Theme,
+  Theme: <Theme />,
 } satisfies AppTabs;
 
 export function Settings() {

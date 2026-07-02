@@ -14,7 +14,7 @@ export const ServiceSpawner = memo(function ServiceSpawner({
   const process = useSelector((state: RootState) => state.process.byId[pid]);
 
   if (!process || !isValidPackage(process?.packageId)) return null;
-  if (hardDrive[process.packageId].isBackgroundService == false) return null;
+  if (!hardDrive[process.packageId].isBackground) return null;
 
   const Component = hardDrive[process.packageId].component;
 

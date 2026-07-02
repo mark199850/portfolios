@@ -41,6 +41,7 @@
   //Layout
   --compact-width: 600px;
   --element-gap: 5px;
+  --content-padding: 50px 10%;
 
   // Color
   --theme: dark;
@@ -52,6 +53,11 @@
   --highlight-color: color-mix(
     in srgb,
     var(--accent-color) 83%,
+    rgba(255, 255, 255, 1)
+  );
+  --selection-color: color-mix(
+    in srgb,
+    var(--hover-color) 95%,
     rgba(255, 255, 255, 1)
   );
   --text-color: rgba(255, 255, 255, 0.87);
