@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../core/context/OSStore";
 import type { IWindow } from "../core/interfaces/IWindow.ts";
 import type { IProcess } from "../core/interfaces/IProcess.ts";
-import type { IPackage } from "../core/interfaces/IPackage.ts";
+import type { IApplicationPackage } from "../core/interfaces/IPackage.ts";
 import {
   saveAccentColor,
   saveBlurAmount,
@@ -32,8 +32,8 @@ type WindowActionMap =
   | {
       type: "ADD_WINDOW";
       processId: IProcess["pid"];
-      title: IPackage["name"];
-      iconName: IPackage["iconName"];
+      title: IApplicationPackage["name"];
+      iconName: IApplicationPackage["iconName"];
     }
   | { type: "BRING_WINDOW_TO_TOP"; windowId: IWindow["id"] }
   | { type: "CLOSE_WINDOW"; windowId: IWindow["id"] }

@@ -23,10 +23,8 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
 
   const pkg = hardDrive[packageId];
 
-  if (pkg.isBackground) {
-    console.warn(
-      `Attempted to render background service '${packageId}' in a window.`,
-    );
+  if (pkg.type !== "application") {
+    console.warn(`Attempted to render ${pkg.type} '${packageId}' in a window.`);
     return null;
   }
 

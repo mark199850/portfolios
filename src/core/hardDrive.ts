@@ -7,41 +7,36 @@ import { SystemMonitor } from "../apps/SystemMonitor/SystemMonitor";
 //to derive servicesArray, creating a module cycle.
 //Move the shared package metadata into a dependency-free module so both sides can import from it.
 //
-//TODO: Make services strictly singleton-only
 
 export const hardDrive = {
   about: {
+    type: "application",
     id: "about",
     iconName: "ProfileIcon",
     name: "About",
-    isBackground: false,
     isSingleton: true,
-    isService: false,
     component: AboutMe,
   },
   settings: {
+    type: "application",
     id: "settings",
     iconName: "SettingsIcon",
     name: "Settings",
-    isBackground: false,
-    isService: false,
     isSingleton: true,
     component: Settings,
   },
   clockd: {
+    type: "service",
     id: "clockd",
     name: "clockd",
-    isBackground: true,
-    isService: true,
     isSingleton: true,
     component: Clockd,
   },
   systemMonitor: {
+    type: "application",
     id: "systemMonitor",
     name: "System Monitor",
     iconName: "SystemMonitorIcon",
-    isBackground: false,
-    isService: false,
     isSingleton: true,
     component: SystemMonitor,
   },

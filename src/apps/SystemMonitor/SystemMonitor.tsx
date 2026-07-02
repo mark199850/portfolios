@@ -15,7 +15,7 @@ export function SystemMonitor() {
 
   const servicesArray = useMemo(() => {
     return Object.values(hardDrive).filter(
-      (packageObj) => packageObj.isService === true,
+      (packageObj) => packageObj.type === "service",
     );
   }, []);
 
