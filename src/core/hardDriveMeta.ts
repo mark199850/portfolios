@@ -1,6 +1,10 @@
 import type { IPackage } from "./interfaces/IPackage";
 
-export const hardDriveMeta = {
+const defineRegistry = <T extends Record<string, IPackage>>(registry: {
+  [K in keyof T]: T[K] & { id: K };
+}) => registry;
+
+export const hardDriveMeta = defineRegistry({
   about: {
     type: "application",
     id: "about",
@@ -32,7 +36,7 @@ export const hardDriveMeta = {
     id: "dateTime",
     name: "DateTime Widget",
   },
-} as const satisfies Record<string, IPackage>;
+} as const);
 
 export type PackageId = keyof typeof hardDriveMeta;
 
