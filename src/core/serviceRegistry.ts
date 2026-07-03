@@ -6,5 +6,5 @@ export const serviceMap: Record<ServiceId, ElementType> = {
   clockd: Clockd,
 };
 export const isValidService = (id: string): id is ServiceId => {
-  return id in serviceMap;
+  return Object.hasOwn(serviceMap, id);
 };
