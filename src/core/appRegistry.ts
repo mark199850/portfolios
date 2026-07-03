@@ -11,5 +11,5 @@ export const applicationMap: Record<AppId, ElementType> = {
 };
 
 export const isValidApplication = (id: string): id is AppId => {
-  return id in applicationMap;
+  return Object.hasOwn(applicationMap, id);
 };

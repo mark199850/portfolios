@@ -37,7 +37,7 @@ export const hardDriveMeta = {
 export type PackageId = keyof typeof hardDriveMeta;
 
 export const isValidPackage = (id: string): id is PackageId => {
-  return id in hardDriveMeta;
+  return Object.hasOwn(hardDriveMeta, id);
 };
 
 export type AppId = {

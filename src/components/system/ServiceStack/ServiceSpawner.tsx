@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { isValidPackage } from "../../../core/hardDriveMeta";
 import type { IProcess } from "../../../core/interfaces/IProcess";
 import type { RootState } from "../../../core/context/OSStore";
 import { memo } from "react";
@@ -14,7 +13,7 @@ export const ServiceSpawner = memo(function ServiceSpawner({
 }: ServiceSpawnerProps) {
   const process = useSelector((state: RootState) => state.process.byId[pid]);
 
-  if (!process || !isValidPackage(process?.packageId)) return null;
+  if (!process) return null;
   if (!isValidService(process.packageId)) return null;
 
   const Component = serviceMap[process.packageId];

@@ -33,7 +33,7 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
 
   return (
     <div className={styles.container}>
-      {PackageComponent ? <PackageComponent /> : <p>Loading...</p>}
+      <PackageComponent />
     </div>
   );
 }
