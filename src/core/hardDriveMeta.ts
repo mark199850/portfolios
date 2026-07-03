@@ -1,3 +1,5 @@
+import type { IPackage } from "./interfaces/IPackage";
+
 export const hardDriveMeta = {
   about: {
     type: "application",
@@ -17,7 +19,6 @@ export const hardDriveMeta = {
     type: "service",
     id: "clockd",
     name: "clockd",
-    isSingleton: true,
   },
   systemMonitor: {
     type: "application",
@@ -30,9 +31,8 @@ export const hardDriveMeta = {
     type: "widget",
     id: "dateTime",
     name: "DateTime Widget",
-    isSingleton: false,
   },
-} as const;
+} as const satisfies Record<string, IPackage>;
 
 export type PackageId = keyof typeof hardDriveMeta;
 

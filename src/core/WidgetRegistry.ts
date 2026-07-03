@@ -25,9 +25,9 @@ export const widgetMap = {
 } satisfies WidgetRegistry;
 
 export const isValidTaskbarWidget = (id: string): id is WidgetId => {
-  return id in widgetMap.taskbar;
+  return Object.hasOwn(widgetMap.taskbar, id);
 };
 
-export const isValidDullSizeWidget = (id: string): id is WidgetId => {
-  return id in widgetMap.fullSize;
+export const isValidFullSizeWidget = (id: string): id is WidgetId => {
+  return Object.hasOwn(widgetMap.fullSize, id);
 };

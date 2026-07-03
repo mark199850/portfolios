@@ -13,7 +13,6 @@ export interface IApplicationPackage extends IBasePackage {
 
 export interface IServicePackage extends IBasePackage {
   type: "service";
-  isSingleton: true;
 }
 
 export interface IWidgetPackage extends IBasePackage {

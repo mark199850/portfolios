@@ -53,7 +53,11 @@ export function useSystemCtl() {
 
       const foundProcess = findProcess(targetPackage.id);
 
-      if (targetPackage.isSingleton && foundProcess) {
+      if (
+        targetPackage.type === "application" &&
+        targetPackage.isSingleton &&
+        foundProcess
+      ) {
         if (targetPackage.type !== "application") return;
         const windowIds = findWindow(foundProcess);
 
