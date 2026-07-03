@@ -40,20 +40,10 @@ export const isValidPackage = (id: string): id is PackageId => {
   return Object.hasOwn(hardDriveMeta, id);
 };
 
-export type AppId = {
-  [K in PackageId]: (typeof hardDriveMeta)[K]["type"] extends "application"
-    ? K
-    : never;
+type PackageIdOfType<T extends IPackage["type"]> = {
+  [K in PackageId]: (typeof hardDriveMeta)[K]["type"] extends T ? K : never;
 }[PackageId];
 
-export type ServiceId = {
-  [K in PackageId]: (typeof hardDriveMeta)[K]["type"] extends "service"
-    ? K
-    : never;
-}[PackageId];
-
-export type WidgetId = {
-  [K in PackageId]: (typeof hardDriveMeta)[K]["type"] extends "widget"
-    ? K
-    : never;
-}[PackageId];
+export type AppId = PackageIdOfType<"application">;
+export type ServiceId = PackageIdOfType<"service">;
+export type WidgetId = PackageIdOfType<"widget">;

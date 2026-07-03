@@ -12,6 +12,14 @@ type TaskbarShortcutProps = {
   windowId: IWindow["id"];
 };
 
+type PackageMeta = (typeof hardDriveMeta)[keyof typeof hardDriveMeta];
+
+function hasIcon(
+  pkg: PackageMeta,
+): pkg is PackageMeta & { iconName: keyof typeof iconMap } {
+  return Object.hasOwn(pkg, "iconName");
+}
+
 export const TaskbarShortcut = memo(function TaskbarShortcut({
   windowId,
 }: TaskbarShortcutProps) {
@@ -52,7 +60,7 @@ export const TaskbarShortcut = memo(function TaskbarShortcut({
   const pkg = hardDriveMeta[packageId];
 
   const IconComponent =
-    "iconName" in pkg && pkg.iconName ? iconMap[pkg.iconName] : undefined;
+    hasIcon(pkg) && pkg.iconName ? iconMap[pkg.iconName] : undefined;
 
   return (
     <Button
