@@ -1,18 +1,17 @@
 import type { DragEndEvent } from "@dnd-kit/react";
 import { useEffect, useRef, useState } from "react";
 import type { IApplicationPackage } from "../../../core/interfaces/IPackage";
-import { hardDrive } from "../../../core/hardDrive";
+import { hardDriveMeta } from "../../../core/hardDriveMeta";
 
 const dummyPackage: IApplicationPackage = {
   type: "application",
   id: "about",
   name: "About",
   isSingleton: false,
-  component: () => null,
   iconName: "ProfileIcon",
 };
 
-const foregroundPackages = Object.values(hardDrive).filter(
+const foregroundPackages = Object.values(hardDriveMeta).filter(
   (pkg) => pkg.type === "application",
 );
 

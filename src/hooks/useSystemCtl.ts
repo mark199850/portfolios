@@ -1,5 +1,5 @@
 import type { IPackage } from "../core/interfaces/IPackage";
-import { hardDrive, isValidPackage } from "../core/hardDrive";
+import { hardDriveMeta, isValidPackage } from "../core/hardDriveMeta";
 import { useProcessManager } from "./useProcessManager";
 import type { IProcess } from "../core/interfaces/IProcess";
 import { useWindowManager } from "./useWindowManager";
@@ -44,7 +44,7 @@ export function useSystemCtl() {
         return;
       }
 
-      const targetPackage = hardDrive[packageId];
+      const targetPackage = hardDriveMeta[packageId];
 
       if (!targetPackage) {
         console.error(`Package with id "${packageId}" not found`);

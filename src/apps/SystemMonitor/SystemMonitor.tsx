@@ -7,14 +7,14 @@ import { Processes } from "./Processes";
 import { RunningApps } from "./RunningApps";
 import type { RootState } from "../../core/context/OSStore";
 import { Services } from "./Services";
-import { hardDrive } from "../../core/hardDrive";
+import { hardDriveMeta } from "../../core/hardDriveMeta";
 import { useMemo } from "react";
 
 export function SystemMonitor() {
   const processes = useSelector((state: RootState) => state.process.byId);
 
   const servicesArray = useMemo(() => {
-    return Object.values(hardDrive).filter(
+    return Object.values(hardDriveMeta).filter(
       (packageObj) => packageObj.type === "service",
     );
   }, []);

@@ -1,8 +1,9 @@
-import { hardDrive, isValidPackage } from "../../../core/hardDrive";
+import { hardDriveMeta, isValidPackage } from "../../../core/hardDriveMeta";
 import type { IWindow } from "../../../core/interfaces/IWindow";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../core/context/OSStore";
 import styles from "./WindowContent.module.scss";
+import { applicationMap, isValidApplication } from "../../../core/appRegistry";
 
 type WindowCOntentProps = {
   windowId: IWindow["id"];
@@ -21,14 +22,14 @@ export function WindowContent({ windowId }: WindowCOntentProps) {
 
   if (!packageId || !isValidPackage(packageId)) return null;
 
-  const pkg = hardDrive[packageId];
+  const pkg = hardDriveMeta[packageId];
 
-  if (pkg.type !== "application") {
+  if (!isValidApplication(pkg.id)) {
     console.warn(`Attempted to render ${pkg.type} '${packageId}' in a window.`);
     return null;
   }
 
-  const PackageComponent = pkg.component;
+  const PackageComponent = applicationMap[pkg.id];
 
   return (
     <div className={styles.container}>

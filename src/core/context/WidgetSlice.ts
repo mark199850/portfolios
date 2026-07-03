@@ -1,17 +1,14 @@
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
-import type {
-  DesktopWidgetName,
-  TaskbarWidgetName,
-} from "../types/WidgetTypes";
+import type { WidgetId } from "../hardDriveMeta";
 
 type DesktopWidgetInstanceProps = {
-  widgetId: DesktopWidgetName;
+  widgetId: WidgetId;
   x: number;
   y: number;
 };
 
 type TaskbarWidgetInstanceProps = {
-  widgetId: TaskbarWidgetName;
+  widgetId: WidgetId;
 };
 
 type InstanceId = string;
@@ -29,10 +26,8 @@ const initialState: WidgetSliceState = {
   desktopIds: [],
 };
 
-function generateWidgetId(
-  widgetName: TaskbarWidgetName | DesktopWidgetName,
-): string {
-  return `${widgetName}_${nanoid(6)}`;
+function generateWidgetId(widgetId: WidgetId): string {
+  return `${widgetId}_${nanoid(6)}`;
 }
 
 export const widgetSlice = createSlice({
@@ -41,24 +36,24 @@ export const widgetSlice = createSlice({
   reducers: {
     addWidgetToTaskbar: (
       state,
-      action: PayloadAction<{ widgetName: TaskbarWidgetName }>,
+      action: PayloadAction<{ widgetId: WidgetId }>,
     ) => {
-      const { widgetName } = action.payload;
-      const instanceId = generateWidgetId(widgetName);
+      const { widgetId } = action.payload;
+      const instanceId = generateWidgetId(widgetId);
       state.taskbarIds.push(instanceId);
 
-      state.taskbarById[instanceId] = { widgetId: widgetName };
+      state.taskbarById[instanceId] = { widgetId: widgetId };
     },
     addWidgetToDesktop: (
       state,
-      action: PayloadAction<{ widgetName: DesktopWidgetName }>,
+      action: PayloadAction<{ widgetId: WidgetId }>,
     ) => {
-      const { widgetName } = action.payload;
-      const instanceId = generateWidgetId(widgetName);
+      const { widgetId } = action.payload;
+      const instanceId = generateWidgetId(widgetId);
       state.desktopIds.push(instanceId);
 
       state.desktopById[instanceId] = {
-        widgetId: widgetName,
+        widgetId: widgetId,
         x: 100,
         y: 50,
       };
