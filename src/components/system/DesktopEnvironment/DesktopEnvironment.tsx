@@ -12,7 +12,7 @@ export function DesktopEnvironment() {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     startService("clockd");
-    dispatch(addWidgetToTaskbar({ widgetName: "clock" }));
+    dispatch(addWidgetToTaskbar({ widgetId: "dateTime" }));
   }, [startService, dispatch]);
 
   return (

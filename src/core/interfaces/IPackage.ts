@@ -1,13 +1,22 @@
-import type { ElementType } from "react";
 import type { IconName } from "../iconRegistry";
 
-export interface IPackage {
+interface IBasePackage {
   id: string;
   name: string;
-  iconName?: IconName;
-  isBackground: boolean;
-  isService: boolean;
-  isSingleton: boolean;
-  component: ElementType;
-  daemons?: string[];
 }
+
+export interface IApplicationPackage extends IBasePackage {
+  type: "application";
+  iconName: IconName;
+  isSingleton: boolean;
+}
+
+export interface IServicePackage extends IBasePackage {
+  type: "service";
+}
+
+export interface IWidgetPackage extends IBasePackage {
+  type: "widget";
+}
+
+export type IPackage = IApplicationPackage | IServicePackage | IWidgetPackage;

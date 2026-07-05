@@ -12,7 +12,7 @@ import { Button } from "@base-ui/react";
 import { useSystemCtl } from "../../hooks/useSystemCtl";
 import { SystemMonitorTable } from "./SystemMonitorTable";
 import type { ProcessId } from "../../core/utils/pid";
-import type { IPackage } from "../../core/interfaces/IPackage";
+import type { IServicePackage } from "../../core/interfaces/IPackage";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
@@ -22,7 +22,7 @@ declare module "@tanstack/react-table" {
   }
 }
 
-const columnHelper = createColumnHelper<IPackage>();
+const columnHelper = createColumnHelper<IServicePackage>();
 
 const COLUMNS = [
   columnHelper.accessor((row) => row.id, {
@@ -43,7 +43,7 @@ const COLUMNS = [
 
 type ServicesProps = {
   processes: Record<ProcessId, IProcess>;
-  services: IPackage[];
+  services: IServicePackage[];
 };
 
 export const Services = memo(function Services({

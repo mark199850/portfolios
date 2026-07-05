@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import type { IWindow } from "../../../core/interfaces/IWindow";
 import type { RootState } from "../../../core/context/OSStore";
-import { hardDrive, isValidPackage } from "../../../core/hardDrive";
+import { hardDriveMeta, isValidPackage } from "../../../core/hardDriveMeta";
 import { useWindowManager } from "../../../hooks/useWindowManager";
 import { useCallback, memo } from "react";
 import styles from "./TaskbarShortcut.module.scss";
@@ -11,6 +11,14 @@ import { iconMap } from "../../../core/iconRegistry";
 type TaskbarShortcutProps = {
   windowId: IWindow["id"];
 };
+
+type PackageMeta = (typeof hardDriveMeta)[keyof typeof hardDriveMeta];
+
+function hasIcon(
+  pkg: PackageMeta,
+): pkg is PackageMeta & { iconName: keyof typeof iconMap } {
+  return Object.hasOwn(pkg, "iconName");
+}
 
 export const TaskbarShortcut = memo(function TaskbarShortcut({
   windowId,
@@ -49,10 +57,10 @@ export const TaskbarShortcut = memo(function TaskbarShortcut({
 
   if (!packageId || !isValidPackage(packageId)) return null;
 
-  const pkg = hardDrive[packageId];
+  const pkg = hardDriveMeta[packageId];
 
   const IconComponent =
-    "iconName" in pkg && pkg.iconName ? iconMap[pkg.iconName] : undefined;
+    hasIcon(pkg) && pkg.iconName ? iconMap[pkg.iconName] : undefined;
 
   return (
     <Button

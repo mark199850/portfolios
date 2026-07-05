@@ -1,5 +1,5 @@
 import type { IPackage } from "../core/interfaces/IPackage";
-import { hardDrive, isValidPackage } from "../core/hardDrive";
+import { hardDriveMeta, isValidPackage } from "../core/hardDriveMeta";
 import { useProcessManager } from "./useProcessManager";
 import type { IProcess } from "../core/interfaces/IProcess";
 import { useWindowManager } from "./useWindowManager";
@@ -44,7 +44,7 @@ export function useSystemCtl() {
         return;
       }
 
-      const targetPackage = hardDrive[packageId];
+      const targetPackage = hardDriveMeta[packageId];
 
       if (!targetPackage) {
         console.error(`Package with id "${packageId}" not found`);
@@ -53,8 +53,11 @@ export function useSystemCtl() {
 
       const foundProcess = findProcess(targetPackage.id);
 
-      if (targetPackage.isSingleton && foundProcess) {
-        if (targetPackage.isBackground) return;
+      if (
+        targetPackage.type === "application" &&
+        targetPackage.isSingleton &&
+        foundProcess
+      ) {
         const windowIds = findWindow(foundProcess);
 
         if (!windowIds) {
@@ -77,12 +80,12 @@ export function useSystemCtl() {
       const spawnedProcessId = executeProcessAction({
         type: "SPAWN_PROCESS",
         packageId,
-        isBackground: targetPackage.isBackground,
+        isBackground: targetPackage.type !== "application",
       });
 
       if (!spawnedProcessId) return;
 
-      if (!targetPackage.isBackground) {
+      if (targetPackage.type === "application") {
         executeWindowAction({
           type: "ADD_WINDOW",
           processId: spawnedProcessId,

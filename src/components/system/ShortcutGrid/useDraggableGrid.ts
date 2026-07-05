@@ -1,29 +1,30 @@
 import type { DragEndEvent } from "@dnd-kit/react";
 import { useEffect, useRef, useState } from "react";
-import type { IPackage } from "../../../core/interfaces/IPackage";
-import { hardDrive } from "../../../core/hardDrive";
+import type { IApplicationPackage } from "../../../core/interfaces/IPackage";
+import { hardDriveMeta } from "../../../core/hardDriveMeta";
 
-const dummyPackage: IPackage = {
+const dummyPackage: IApplicationPackage = {
+  type: "application",
   id: "about",
   name: "About",
-  isBackground: false,
-  isService: true,
   isSingleton: false,
-  component: () => null,
+  iconName: "ProfileIcon",
 };
 
-const foregroundPackages = Object.values(hardDrive).filter(
-  (pkg) => !pkg.isBackground,
+const foregroundPackages = Object.values(hardDriveMeta).filter(
+  (pkg) => pkg.type === "application",
 );
 
 function useDraggableGrid() {
-  const [icons, setIcons] = useState<Array<IPackage>>(() => foregroundPackages);
+  const [icons, setIcons] = useState<Array<IApplicationPackage>>(
+    () => foregroundPackages,
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
     const baseIcons = foregroundPackages;
-    let dummyIconsCache: IPackage[] = [];
+    let dummyIconsCache: IApplicationPackage[] = [];
     let frameId: number;
     const resizeObserver = new ResizeObserver((entries) => {
       cancelAnimationFrame(frameId);
@@ -48,7 +49,7 @@ function useDraggableGrid() {
             return;
           }
 
-          const dummyIcons: IPackage[] = [];
+          const dummyIcons: IApplicationPackage[] = [];
           for (
             let i = 0;
             i < verticalCellsCount * horizontalCellsCount - baseIcons.length;

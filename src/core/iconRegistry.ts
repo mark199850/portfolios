@@ -10,5 +10,5 @@ export const iconMap = {
 export type IconName = keyof typeof iconMap;
 
 export const isValidIcon = (id: string): id is IconName => {
-  return id in iconMap;
+  return Object.hasOwn(iconMap, id);
 };

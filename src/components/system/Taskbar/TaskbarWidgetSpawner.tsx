@@ -1,16 +1,20 @@
 import { memo } from "react";
-import { widgetRegistry } from "../../../core/WidgetRegistry";
+import { isValidTaskbarWidget, widgetMap } from "../../../core/WidgetRegistry";
 import TaskbarWidgetWrapper from "../../shared/Widget/TaskbarWidgetWrapper";
-import type { TaskbarWidgetName } from "../../../core/types/WidgetTypes";
+import type { WidgetId } from "../../../core/hardDriveMeta";
 
 type TaskbarWidgetSpawnerProps = {
-  id: TaskbarWidgetName;
+  id: WidgetId;
 };
 export const TaskbarWidgetSpawner = memo(function TaskbarWidgetSpawner({
   id,
 }: TaskbarWidgetSpawnerProps) {
-  const DisplayComponent = widgetRegistry.taskbar[id].display;
-  const FloatingPopupComponent = widgetRegistry.taskbar[id].floatingPopup;
+  if (!isValidTaskbarWidget(id)) {
+    console.warn(`Attempted to spawn widget with invalid id: ${id}`);
+    return null;
+  }
+  const DisplayComponent = widgetMap.taskbar[id].display;
+  const FloatingPopupComponent = widgetMap.taskbar[id].floatingPopup;
 
   return (
     <TaskbarWidgetWrapper

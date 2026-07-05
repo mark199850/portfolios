@@ -1,6 +1,6 @@
 import { DateTimeFullSizeWidget } from "../widgets/DateTime/DateTimeFullSizeWidget";
 import { DateTimeTaskbarWidget } from "../widgets/DateTime/DateTimeTaskbarWidget";
-import type { DesktopWidgetName, TaskbarWidgetName } from "./types/WidgetTypes";
+import type { WidgetId } from "./hardDriveMeta";
 
 type TaskbarWidget = {
   display: React.ElementType;
@@ -8,15 +8,26 @@ type TaskbarWidget = {
 };
 
 type WidgetRegistry = {
-  taskbar?: Record<TaskbarWidgetName, TaskbarWidget>;
-  desktop?: Record<DesktopWidgetName, React.ElementType>;
+  taskbar: Record<WidgetId, TaskbarWidget>;
+  fullSize: Record<WidgetId, React.ElementType>;
 };
 
-export const widgetRegistry = {
+export const widgetMap = {
   taskbar: {
-    clock: {
+    dateTime: {
       display: DateTimeTaskbarWidget,
       floatingPopup: DateTimeFullSizeWidget,
     },
   },
+  fullSize: {
+    dateTime: DateTimeFullSizeWidget,
+  },
 } satisfies WidgetRegistry;
+
+export const isValidTaskbarWidget = (id: string): id is WidgetId => {
+  return Object.hasOwn(widgetMap.taskbar, id);
+};
+
+export const isValidFullSizeWidget = (id: string): id is WidgetId => {
+  return Object.hasOwn(widgetMap.fullSize, id);
+};
