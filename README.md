@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./logo.png" alt="PortfoliOS Banner" width="200" style="border-radius: 12px;"/>
 
-  # 🐧 [PortfoliOS](https://main-portfolios.mark199850.workers.dev/)
+  # 🐧 [PortfoliOS](https://portfolios.mark199850.workers.dev/)
 
   **A Linux Desktop-Like Web Application Portfolio**
   
@@ -11,7 +11,7 @@
   [![Redux Toolkit](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)](#)
   [![SCSS](https://img.shields.io/badge/SCSS-HOTPINK?style=for-the-badge&logo=sass&logoColor=white)](#)
 
-  **[Live Demo](https://main-portfolios.mark199850.workers.dev/)**
+  **[Live Demo](https://portfolios.mark199850.workers.dev/)**
 </div>
 
 ---
