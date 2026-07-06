@@ -17,7 +17,7 @@ type Project = {
 const projects: Project[] = [
   {
     logo: PortfoliOSLogo,
-    link: "https://main-portfolios.mark199850.workers.dev/",
+    link: "https://portfolios.mark199850.workers.dev/",
     name: "PortfoliOS",
     status: "v0.7.0, WIP",
     frontend: ["TypeScript", "React", "Vite", "Redux", "Base UI"],
