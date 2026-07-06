@@ -1,0 +1,58 @@
+@use "../../mixins" as *;
+
+.trigger {
+  @include button-base;
+  background-color: transparent;
+
+  &[data-popup-open] {
+    background-color: var(--accent-color);
+  }
+}
+
+.positioner {
+  z-index: 999;
+  width: var(--positioner-width);
+  height: var(--positioner-height);
+  max-width: var(--available-width);
+}
+
+.popup {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  outline: none;
+  border: none;
+  border-radius: var(--border-radius);
+  backdrop-filter: var(--backdrop-filter);
+  background-color: var(--tertiary-color);
+  color: var(--text-color-tertiary-bg);
+  box-shadow: var(--box-shadow);
+  -webkit-box-shadow: var(--box-shadow);
+  -moz-box-shadow: var(--box-shadow);
+  width: var(--popup-width, auto);
+  height: var(--popup-height, auto);
+  max-height: 500px;
+  overflow: hidden;
+  transform: translateY(0) translateX(0);
+  opacity: 1;
+  transition:
+    transform var(--500ms) var(--slowing-quick-start),
+    opacity var(--500ms) var(--slowing-quick-start);
+  will-change: transform, opacity;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    transform: translateY(var(--taskbar-height));
+    opacity: 0;
+  }
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--text-color-tertiary-bg);
+}

@@ -1,5 +1,5 @@
 import { flexRender, type RowData, type Table } from "@tanstack/react-table";
-import { ScrollableArea } from "../../components/shared/ScrollableArea/ScrollableArea";
+import { ScrollableArea } from "../../shared/components/ScrollableArea/ScrollableArea";
 import styles from "./SystemMonitorTable.module.scss";
 import { Button } from "@base-ui/react";
 

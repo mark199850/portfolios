@@ -4,16 +4,16 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { IProcess } from "../../core/interfaces/IProcess";
+import type { OSProcess } from "../../kernel/types/OSProcess";
 import { useMemo } from "react";
 import styles from "./Processes.module.scss";
 import { Button } from "@base-ui/react";
-import { useSystemCtl } from "../../hooks/useSystemCtl";
+import { useSystemCtl } from "../../system/hooks/useSystemCtl";
 import { SystemMonitorTable } from "./SystemMonitorTable";
-import type { ProcessId } from "../../core/utils/pid";
+import type { ProcessId } from "../../kernel/utils/pid";
 import { UptimeCell } from "./UptimeCell";
 
-const columnHelper = createColumnHelper<IProcess>();
+const columnHelper = createColumnHelper<OSProcess>();
 const COLUMNS = [
   columnHelper.accessor((row) => row.pid, {
     id: "ProcessID",
@@ -45,7 +45,7 @@ const COLUMNS = [
 ];
 
 type ProcessesProps = {
-  processes: Record<ProcessId, IProcess>;
+  processes: Record<ProcessId, OSProcess>;
 };
 
 export function Processes({ processes }: ProcessesProps) {
@@ -53,7 +53,7 @@ export function Processes({ processes }: ProcessesProps) {
 
   const { stopService } = useSystemCtl();
 
-  const data: IProcess[] = useMemo(() => Object.values(processes), [processes]);
+  const data: OSProcess[] = useMemo(() => Object.values(processes), [processes]);
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({

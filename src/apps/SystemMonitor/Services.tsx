@@ -5,14 +5,14 @@ import {
   useReactTable,
   type RowData,
 } from "@tanstack/react-table";
-import type { IProcess } from "../../core/interfaces/IProcess";
+import type { OSProcess } from "../../kernel/types/OSProcess";
 import { memo, useMemo } from "react";
 import styles from "./Services.module.scss";
 import { Button } from "@base-ui/react";
-import { useSystemCtl } from "../../hooks/useSystemCtl";
+import { useSystemCtl } from "../../system/hooks/useSystemCtl";
 import { SystemMonitorTable } from "./SystemMonitorTable";
-import type { ProcessId } from "../../core/utils/pid";
-import type { IServicePackage } from "../../core/interfaces/IPackage";
+import type { ProcessId } from "../../kernel/utils/pid";
+import type { ServicePackageMeta } from "../../kernel/types/PackageMeta";
 
 declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
@@ -22,7 +22,7 @@ declare module "@tanstack/react-table" {
   }
 }
 
-const columnHelper = createColumnHelper<IServicePackage>();
+const columnHelper = createColumnHelper<ServicePackageMeta>();
 
 const COLUMNS = [
   columnHelper.accessor((row) => row.id, {
@@ -42,8 +42,8 @@ const COLUMNS = [
 ];
 
 type ServicesProps = {
-  processes: Record<ProcessId, IProcess>;
-  services: IServicePackage[];
+  processes: Record<ProcessId, OSProcess>;
+  services: ServicePackageMeta[];
 };
 
 export const Services = memo(function Services({

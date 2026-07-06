@@ -1,7 +1,7 @@
 import {
   TabbedView,
   type AppTabs,
-} from "../../components/shared/TabbedView/TabbedView";
+} from "../../shared/components/TabbedView/TabbedView";
 import { Theme } from "./Theme";
 
 const tabs = {

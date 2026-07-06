@@ -1,7 +1,7 @@
-import { useWindowManager } from "../../hooks/useWindowManager";
+import { useWindowManager } from "../../system/hooks/useWindowManager";
 import styles from "./Theme.module.scss";
-import { PreviewSlider } from "../../components/shared/PreviewSlider/PreviewSlider";
-import { PreviewColorPicker } from "../../components/shared/PreviewColorPicker/PreviewColorPicker";
+import { PreviewSlider } from "../../shared/components/PreviewSlider/PreviewSlider";
+import { PreviewColorPicker } from "../../shared/components/PreviewColorPicker/PreviewColorPicker";
 export function Theme() {
   const { themeState, executeThemeAction, previewTheme } = useWindowManager();
 
