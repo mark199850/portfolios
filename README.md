@@ -28,11 +28,11 @@ Instead of a traditional scrolling webpage, visitors interact with a simulated d
 
 This project is built to function like a mini operating system inside the browser, leveraging advanced React patterns and Redux Toolkit for global state synchronization:
 
-* **Advanced Window Management (`useWindowManager`)**: Complete windowing system supporting dragging, z-index stacking (`WindowStack`), and dynamic content rendering.
-* **Kernel & Process System (`kernel/`, `processSlice`)**: Simulated OS-level architecture that assigns PIDs to running applications and tracks system states in a centralized `OSStore`.
-* **Daemons & Init System (`system/InitSystem`)**: Background service management that spawns daemons like `Clockd` on startup to keep system widgets continuously updated.
-* **Native Applications**: Includes standalone apps like `AboutMe`, `Settings`, and a fully functional `SystemMonitor` for tracking processes and uptime.
-* **Fluid UI & Theming**: Polished user interface built with strictly scoped SCSS modules, featuring customizable themes (`themeSlice`), desktop shortcuts and taskbar widgets.
+* **Advanced Window Management (`useWindowManager`, `windowStack`, `windowFram`)**: Complete windowing system supporting dragging, z-index stacking, and dynamic content rendering.
+* **Kernel & Process System (`kernel/`, `processSlice`, `useProcessManager`)**: Simulated OS-level architecture that assigns PIDs to running applications and tracks system states in a centralized `OSStore`.
+* **Daemons & Init System (`system/InitSystem`, `daemons/`)**: Background service management that spawns daemons like `Clockd` on startup to keep system widgets continuously updated.
+* **Native Applications**: Includes standalone apps like `AboutMe`, `Settings`, and a fully functional `SystemMonitor` for tracking and handling processes.
+* **Fluid UI & Theming**: Polished user interface built with strictly scoped SCSS modules, featuring customizable themes, desktop shortcuts and taskbar widgets.
 
 ---
 
