@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="./logo.png" alt="PortfoliOS Banner" width="100%" style="border-radius: 12px;"/>
+  <img src="./logo.png" alt="PortfoliOS Banner" width="200" style="border-radius: 12px;"/>
 
-  # 🐧 [PortfoliOS](https://development-portfolios.mark199850.workers.dev/)
+  # 🐧 [PortfoliOS](https://main-portfolios.mark199850.workers.dev/)
 
   **A Linux Desktop-Like Web Application Portfolio**
   
@@ -11,7 +11,7 @@
   [![Redux Toolkit](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)](#)
   [![SCSS](https://img.shields.io/badge/SCSS-HOTPINK?style=for-the-badge&logo=sass&logoColor=white)](#)
 
-  **[Live Demo](https://development-portfolios.mark199850.workers.dev/)**
+  **[Live Demo](https://main-portfolios.mark199850.workers.dev/)**
 </div>
 
 ---
@@ -21,11 +21,6 @@
 **PortfoliOS** is a highly interactive, Linux desktop-like personal portfolio built for the web. It was designed from the ground up to showcase my skills in frontend architecture, UI/UX design, and my passion for Linux systems.
 
 Instead of a traditional scrolling webpage, visitors interact with a simulated desktop environment complete with window management, a taskbar, process monitoring, and custom native "apps" that detail my professional experience, education, and development projects.
-
-## Live Environment
-
-Experience the OS in your browser:  
-🔗 **[PortfoliOS Live Deployment](https://development-portfolios.mark199850.workers.dev/)**
 
 ---
 
@@ -43,9 +38,9 @@ This project is built to function like a mini operating system inside the browse
 
 ## Tech Stack
 
-* **Core:** React 18, TypeScript, Vite
+* **Core:** React 19.2.3, TypeScript, Vite
 * **State Management:** Redux Toolkit (Modular Slices: `hardwareSlice`, `processSlice`, `windowSlice`, `themeSlice`, `widgetSlice`)
-* **Styling:** SCSS Modules
+* **Styling/UI:** SCSS Modules, Base Ui
 * **Hosting:** Cloudflare Workers
 
 ---
@@ -81,7 +76,7 @@ Want to run PortfoliOS locally? Follow these steps:
 
 1. **Clone the repository:**
 ```bash
-git clone [https://github.com/mark199850/portfolios.git](https://github.com/mark199850/portfolios.git)
+git clone https://github.com/mark199850/portfolios.git
 cd portfolios
 
 ```
@@ -115,6 +110,6 @@ npm run build
 
 **Márk Pócs** *Software Developer*
 
-I am a software developer with over 2.5 years of experience, passionate about Linux, modern web technologies, and fluid user interfaces. I enjoy crafting seamless digital experiences that feel fast, intuitive, and alive.
+I am a software developer with over 2.5 years of experience, passionate about Linux, modern web technologies, and fluid user interfaces. I enjoy crafting seamless digital experiences that feel fast, intuitive, and alive. In my free time, I also enjoy working on my little homelab.
 
 ---
