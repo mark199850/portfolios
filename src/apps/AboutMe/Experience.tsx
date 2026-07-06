@@ -49,7 +49,7 @@ export function Experience() {
         return (
           <li key={experience.type} className={styles.item}>
             <div className={styles.logo}>
-              <img src={experience.logo} alt={`${experience.logo} logo`} />
+              <img src={experience.logo} alt="experience logo" />
             </div>
             <div className={styles.text}>
               <h3>{experience.type}</h3>

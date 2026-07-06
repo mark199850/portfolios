@@ -52,7 +52,7 @@ export function Projects() {
               <img
                 className={styles.img}
                 src={project.logo}
-                alt={`${project.logo} logo`}
+                alt="project logo"
               />
               {project.sourceCode && (
                 <>
@@ -67,7 +67,7 @@ export function Projects() {
                   <img
                     className={styles.sourceCodeBg}
                     src={CodeLogoSvg}
-                    alt={`${CodeLogoSvg} logo`}
+                    alt="Source Code logo"
                   ></img>
                 </>
               )}

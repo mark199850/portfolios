@@ -34,7 +34,7 @@ export function Education() {
         return (
           <li key={education.school} className={styles.item}>
             <div className={styles.logo}>
-              <img src={education.logo} alt={`${education.logo} logo`} />
+              <img src={education.logo} alt="education logo" />
             </div>
             <div className={styles.text}>
               <h3>{education.type}</h3>

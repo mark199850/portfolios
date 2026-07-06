@@ -9,7 +9,7 @@ export function Profile() {
           <img
             className={styles.profileImage}
             src={ProfileIcon}
-            alt={`${ProfileIcon} icon`}
+            alt="Profile icon"
           />
         </div>
         <div className={styles.detailsWrapper}>
