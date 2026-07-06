@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="https://github.com/mark199850/portfolios/blob/development/src/apps/AboutMe/assets/portfolios.jpg?raw=true" alt="PortfoliOS Banner" width="100%" style="border-radius: 12px;"/>
+  <img src="./logo.png" alt="PortfoliOS Banner" width="100%" style="border-radius: 12px;"/>
 
-  # 🐧 PortfoliOS (v0.7.0 MVP)
+  # 🐧 [PortfoliOS](https://development-portfolios.mark199850.workers.dev/)
 
   **A Linux Desktop-Like Web Application Portfolio**
   
@@ -16,32 +16,32 @@
 
 ---
 
-## ✨ Overview
+## Overview
 
 **PortfoliOS** is a highly interactive, Linux desktop-like personal portfolio built for the web. It was designed from the ground up to showcase my skills in frontend architecture, UI/UX design, and my passion for Linux systems.
 
 Instead of a traditional scrolling webpage, visitors interact with a simulated desktop environment complete with window management, a taskbar, process monitoring, and custom native "apps" that detail my professional experience, education, and development projects.
 
-## 🚀 Live Environment
+## Live Environment
 
 Experience the OS in your browser:  
 🔗 **[PortfoliOS Live Deployment](https://development-portfolios.mark199850.workers.dev/)**
 
 ---
 
-## 💡 Key Features & Engineering
+## Key Features & Engineering
 
 This project is built to function like a mini operating system inside the browser, leveraging advanced React patterns and Redux Toolkit for global state synchronization:
 
-* 🪟 **Advanced Window Management (`useWindowManager`)**: Complete windowing system supporting dragging, z-index stacking (`WindowStack`), and dynamic content rendering.
-* ⚙️ **Kernel & Process System (`kernel/`, `processSlice`)**: Simulated OS-level architecture that assigns PIDs to running applications and tracks system states in a centralized `OSStore`.
-* 👾 **Daemons & Init System (`system/InitSystem`)**: Background service management that spawns daemons like `Clockd` on startup to keep system widgets continuously updated.
-* 📊 **Native Applications**: Includes standalone apps like `AboutMe`, `Settings`, and a fully functional `SystemMonitor` for tracking processes and uptime.
-* 🎨 **Fluid UI & Theming**: Polished user interface built with strictly scoped SCSS modules, featuring customizable themes (`themeSlice`), desktop shortcuts and taskbar widgets.
+* **Advanced Window Management (`useWindowManager`)**: Complete windowing system supporting dragging, z-index stacking (`WindowStack`), and dynamic content rendering.
+* **Kernel & Process System (`kernel/`, `processSlice`)**: Simulated OS-level architecture that assigns PIDs to running applications and tracks system states in a centralized `OSStore`.
+* **Daemons & Init System (`system/InitSystem`)**: Background service management that spawns daemons like `Clockd` on startup to keep system widgets continuously updated.
+* **Native Applications**: Includes standalone apps like `AboutMe`, `Settings`, and a fully functional `SystemMonitor` for tracking processes and uptime.
+* **Fluid UI & Theming**: Polished user interface built with strictly scoped SCSS modules, featuring customizable themes (`themeSlice`), desktop shortcuts and taskbar widgets.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **Core:** React 18, TypeScript, Vite
 * **State Management:** Redux Toolkit (Modular Slices: `hardwareSlice`, `processSlice`, `windowSlice`, `themeSlice`, `widgetSlice`)
@@ -50,7 +50,7 @@ This project is built to function like a mini operating system inside the browse
 
 ---
 
-## 📂 Architecture & Folder Structure
+## Architecture & Folder Structure
 
 As of the v0.7.0 release, PortfoliOS utilizes a domain-driven, highly scalable folder architecture to strictly separate system logic from application UI:
 
@@ -68,7 +68,7 @@ src/
 
 ---
 
-## 💻 Getting Started
+## Getting Started
 
 Want to run PortfoliOS locally? Follow these steps:
 
@@ -111,7 +111,7 @@ npm run build
 
 ---
 
-## 👨‍💻 About the Author
+## About the Author
 
 **Márk Pócs** *Software Developer*
 
