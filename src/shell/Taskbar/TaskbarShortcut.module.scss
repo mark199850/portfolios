@@ -1,0 +1,16 @@
+@use "../../mixins" as *;
+
+.icon {
+  width: var(--taskbar-height);
+  height: 100%;
+}
+
+.button {
+  @include button-base;
+  padding: 5px;
+  border-radius: calc(var(--border-radius) * 0.5);
+
+  &.selected {
+    background-color: var(--accent-color);
+  }
+}

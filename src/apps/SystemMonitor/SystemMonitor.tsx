@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import {
   TabbedView,
   type AppTabs,
-} from "../../components/shared/TabbedView/TabbedView";
+} from "../../shared/components/TabbedView/TabbedView";
 import { Processes } from "./Processes";
 import { RunningApps } from "./RunningApps";
-import type { RootState } from "../../core/context/OSStore";
+import type { RootState } from "../../kernel/context/OSStore";
 import { Services } from "./Services";
-import { hardDriveMeta } from "../../core/hardDriveMeta";
+import { hardDriveMeta } from "../../system/hardDriveMeta";
 import { useMemo } from "react";
 
 export function SystemMonitor() {

@@ -7,17 +7,17 @@ import {
   useReactTable,
   type ExpandedState,
 } from "@tanstack/react-table";
-import type { IProcess } from "../../core/interfaces/IProcess";
+import type { OSProcess } from "../../kernel/types/OSProcess";
 import { useMemo, useState } from "react";
 import styles from "./RunningApps.module.scss";
 import { Button } from "@base-ui/react";
-import { useSystemCtl } from "../../hooks/useSystemCtl";
+import { useSystemCtl } from "../../system/hooks/useSystemCtl";
 import { SystemMonitorTable } from "./SystemMonitorTable";
-import type { ProcessId } from "../../core/utils/pid";
+import type { ProcessId } from "../../kernel/utils/pid";
 import "@tanstack/react-table";
 import { UptimeCell } from "./UptimeCell";
 
-const columnHelper = createColumnHelper<IProcess>();
+const columnHelper = createColumnHelper<OSProcess>();
 const COLUMNS = [
   columnHelper.accessor((row) => row.packageId, {
     id: "PackageID",
@@ -55,7 +55,7 @@ const COLUMNS = [
 ];
 
 type RunningAppsProps = {
-  processes: Record<ProcessId, IProcess>;
+  processes: Record<ProcessId, OSProcess>;
 };
 
 export function RunningApps({ processes }: RunningAppsProps) {
@@ -71,7 +71,7 @@ export function RunningApps({ processes }: RunningAppsProps) {
     [processes],
   );
 
-  const data: IProcess[] = foregroundProcesses;
+  const data: OSProcess[] = foregroundProcesses;
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({

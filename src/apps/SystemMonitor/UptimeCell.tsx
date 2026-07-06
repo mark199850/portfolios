@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../../core/context/OSStore";
+import type { RootState } from "../../kernel/context/OSStore";
 
 type UptimeCellProps = {
   startTimestamp: number;

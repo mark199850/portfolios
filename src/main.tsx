@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.scss";
 import App from "./App.tsx";
-import { store } from "./core/context/OSStore.ts";
+import { store } from "./kernel/context/OSStore.ts";
 import { Provider } from "react-redux";
 
 createRoot(document.getElementById("root")!).render(

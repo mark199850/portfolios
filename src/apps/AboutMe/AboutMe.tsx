@@ -5,7 +5,7 @@ import { Projects } from "./Projects";
 import {
   TabbedView,
   type AppTabs,
-} from "../../components/shared/TabbedView/TabbedView";
+} from "../../shared/components/TabbedView/TabbedView";
 
 const tabs = {
   Profile: <Profile />,
