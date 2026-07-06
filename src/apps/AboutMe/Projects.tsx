@@ -1,6 +1,5 @@
 import styles from "./Projects.module.scss";
 import PortfoliOSLogo from "./assets/portfolios.jpg";
-import PSHungaryLogo from "./assets/pshungary.png";
 import CodeLogoSvg from "./assets/code.svg";
 import MyVocLogo from "./assets/myvoc.png";
 
@@ -20,21 +19,11 @@ const projects: Project[] = [
     logo: PortfoliOSLogo,
     link: "https://main-portfolios.mark199850.workers.dev/",
     name: "PortfoliOS",
-    status: "v0.3.2, WIP",
-    frontend: ["React", "Vite", "Redux"],
+    status: "v0.7.0, WIP",
+    frontend: ["TypeScript", "React", "Vite", "Redux", "Base UI"],
     backend: ["TBD"],
     description: "An OS-like web application",
     sourceCode: "https://github.com/mark199850/portfolios",
-  },
-  {
-    logo: PSHungaryLogo,
-    link: "https://www.perfectsystemhungary.hu",
-    name: "PerfectSystemHungary.hu",
-    status: "Legacy, Rework Planned",
-    frontend: ["React"],
-    backend: ["NodeJS", "MySQL"],
-    description:
-      "A landing page created together with my classmate back then, for his friend.",
   },
   {
     logo: MyVocLogo,
@@ -60,7 +49,11 @@ export function Projects() {
                 ${styles.logo} ${project.sourceCode ? styles.hasSourceCode : ""}
               `}
             >
-              <img className={styles.img} src={project.logo} alt="" />
+              <img
+                className={styles.img}
+                src={project.logo}
+                alt="project logo"
+              />
               {project.sourceCode && (
                 <>
                   <a
@@ -74,7 +67,7 @@ export function Projects() {
                   <img
                     className={styles.sourceCodeBg}
                     src={CodeLogoSvg}
-                    alt=""
+                    alt="Source Code logo"
                   ></img>
                 </>
               )}

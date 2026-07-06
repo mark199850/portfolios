@@ -1,7 +1,7 @@
 import styles from "./Experience.module.scss";
 import CSharpLogo from "./assets/csharp_semi.png";
 import TSAWSLogo from "./assets/aws-ts-logo.png";
-import AngularLogo from "./assets/anguar.png";
+import AngularLogo from "./assets/angular.png";
 
 type Experience = {
   logo: string;
@@ -49,7 +49,7 @@ export function Experience() {
         return (
           <li key={experience.type} className={styles.item}>
             <div className={styles.logo}>
-              <img src={experience.logo} alt="" />
+              <img src={experience.logo} alt="experience logo" />
             </div>
             <div className={styles.text}>
               <h3>{experience.type}</h3>

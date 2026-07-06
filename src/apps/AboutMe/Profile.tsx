@@ -6,7 +6,11 @@ export function Profile() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.profileImageWrapper}>
-          <img className={styles.profileImage} src={ProfileIcon} alt="" />
+          <img
+            className={styles.profileImage}
+            src={ProfileIcon}
+            alt="Profile icon"
+          />
         </div>
         <div className={styles.detailsWrapper}>
           <div className={styles.detailRow}>
