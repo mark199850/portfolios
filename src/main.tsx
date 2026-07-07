@@ -5,6 +5,10 @@ import App from "./App.tsx";
 import { store } from "./kernel/context/OSStore.ts";
 import { Provider } from "react-redux";
 
+if (import.meta.env.DEV) {
+  import("eruda").then((eruda) => eruda.default.init());
+}
+
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <StrictMode>
