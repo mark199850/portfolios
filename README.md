@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./logo.png" alt="PortfoliOS Banner" width="200" style="border-radius: 12px;"/>
 
-  # 🐧 [PortfoliOS](https://portfoli-os.com/)
+# 🐧 [PortfoliOS](https://portfoli-os.com/)
 
   **A Linux Desktop-Like Web Application Portfolio**
   
